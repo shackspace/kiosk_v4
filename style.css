@@ -1,4 +1,4 @@
-* {cursor: none;}
+/* * {cursor: none;} */
 
 body {
 	margin: 0;
@@ -23,6 +23,10 @@ footer{
 p, span, table{
   font-family: "sans-serif";
   font-weight: bold;
+}
+
+img{
+  user-drag: none; -moz-user-select: none; -webkit-user-drag: none;
 }
 
 .main {
