@@ -1,0 +1,53 @@
+body {
+	margin: 0;
+}
+
+header{
+  background-color:black;
+  color:white;
+  text-align:center;
+  height: 100px;
+}
+
+footer{
+  background-color:black;
+  color:white;
+  clear:both;
+  text-align:center;
+  height: 100px;
+}
+
+p, span, table{
+  font-family: "arial";
+  font-weight: bold;
+}
+
+.main {
+  top: 100px; /* Header Height */
+  bottom: 100px; /* Footer Height */
+  height: calc(100% - 200px);
+  background-color: #000;
+}
+
+.buttons{
+  text-align:center;
+  padding-Top: 50px;
+  padding-Bottom: 50px;
+  height: 100%;
+  width: 100%;
+}
+
+.button {
+  height: calc((100vh - 300px) / 2 - 50px);
+}
+
+.ct-series{
+  stroke: #bbf;
+  fill: "none";
+  stroke-width: 10px;
+}
+
+.ct-labels{
+  color: #bbf;
+  font-size: 25px;
+}

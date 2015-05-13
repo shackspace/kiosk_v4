@@ -1,0 +1,11 @@
+
+module mypol 1.0;
+
+require {
+	type unconfined_t;
+	type chrome_sandbox_t;
+	class file write;
+}
+
+#============= chrome_sandbox_t ==============
+allow chrome_sandbox_t unconfined_t:file write;

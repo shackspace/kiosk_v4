@@ -1,0 +1,47 @@
+<html>
+<head>
+	<link rel="stylesheet" href="style.css">
+	<title>shack kiosk interface</title>
+	<script src="./home.js"></script>
+</head>
+<body>
+	<header>
+		<div style="height: 100px; width:80%; float: left; background-color: #440">
+			<p id="mpd" style="margin-top: 30px; font-size:40px">Loading MPD information...</p>
+		</div>
+		<div style="height: 100px; width:20%; float: left; background-color: #404">
+			<img style="float: left; margin-top: 15px; margin-left: calc(40% - 80px); width: 70px" src="./images_home/bitcoin.png"><img>
+			<span id="btc" style="float: left; margin-left: 15px; color: #ffcc00; margin-top:30px; font-size:40px">loading</span>
+		</div>
+	</header>
+	<div class="main">
+		<table class="buttons">
+			<tr>
+				<td><a href="light.html"><img class="button" src="./images_home/logo_light.png"></a></td>
+				<td><a href="vvs.html"><img class="button" src="./images_home/logo_vvs.png"></a></td>
+				<td><a href="light.html"><img class="button" src="./images_home/logo_power.png"></td></a>
+			</tr>
+			<tr></tr>
+			<tr>
+				<td><img class="button" src="./images_home/testimage.jpg"></td>
+				<td><img class="button" src="./images_home/testimage.jpg"></td>
+				<td><img class="button" src="./images_home/testimage.jpg"></td>
+			</tr>
+		</table>
+	</div>
+	<footer>
+		<div style="height: 100px; width:30%; float: left; background-color: #200">
+			<p id="power" style="margin-top: 20px; font-size:60px">Power information</p>
+		</div>
+		<div style="height: 100px; width:20%; float: left; background-color: #020">
+			<p id="temp" style="margin-top: 20px; font-size:60px">Temperature</p>
+		</div>
+		<div style="height: 100px; width:20%; float: left; background-color: #020">
+			<p id="humidity" style="margin-top: 20px; font-size:60px">Humidity</p>
+		</div>
+		<div style="height: 100px; width:30%; float: left; background-color: #002">
+			<p id="keyholder" style="margin-top: 20px; font-size:60px">Keyholder</p>
+		</div>
+	</footer>
+</body>
+</html>
