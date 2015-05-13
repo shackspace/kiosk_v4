@@ -26,7 +26,7 @@ function update(){
 						departure = responseArray[departure]; //Get the departure object
 						var departureRow = tableFill.insertRow();
 						var logoCell = departureRow.insertCell();
-						logoCell.innerHTML = "<img src='./images_vvs/" + departure.symbol + ".png' style='width:120px;'></img>"; //Set logo
+						logoCell.innerHTML = "<img src='./images_vvs/" + departure.symbol + ".png' style='width:100px;'></img>"; //Set logo
 						logoCell.style.paddingRight = "20px";
 						var destinationCell = departureRow.insertCell().innerHTML = departure.direction; //Set direction
 						var minutesLeft = 0;

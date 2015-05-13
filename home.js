@@ -25,7 +25,7 @@ function requestPowerInformation(){
 		if(powerRequest.readyState==4 && powerRequest.status==200){
 			response = JSON.parse(powerRequest.responseText);
 			console.log(response);
-			document.getElementById("power").innerHTML=response.Total[0] + " Watts";
+			document.getElementById("power").innerHTML=response.Total[0] + " Watt";
 		}
 	}
 
@@ -93,7 +93,7 @@ function requestKeyInformation(){
 		if(keyRequest.readyState==4 && keyRequest.status==200){
 			response = JSON.parse(keyRequest.responseText);
 			console.log(response);
-			document.getElementById("keyholder").innerHTML="Keyholder: " + response.keyholder;
+			document.getElementById("keyholder").innerHTML="Key: " + response.keyholder;
 		}
 	}
 
