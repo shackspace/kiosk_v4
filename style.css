@@ -56,10 +56,28 @@ img{
   height: calc((100vh - 300px) / 2 - 50px);
 }
 
-.ct-series{
+.ct-series-a{
   stroke: #bbf;
   fill: "none";
   stroke-width: 10px;
+}
+
+.ct-series-b{
+  stroke: #6f6;
+  fill: "none";
+  stroke-width: 2px;
+}
+
+.ct-series-c{
+  stroke: #6ff;
+  fill: "none";
+  stroke-width: 2px;
+}
+
+.ct-series-d{
+  stroke: #f66;
+  fill: "none";
+  stroke-width: 2px;
 }
 
 .ct-labels{

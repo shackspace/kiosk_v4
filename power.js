@@ -13,18 +13,34 @@ function createGraph(){
 			response = JSON.parse(this.responseText);
 			console.log(response);
 			var labelArray = [];
-			var dataArray = [];
+			var totalArray = [];
+			var l1Array = [];
+			var l2Array = [];
+			var l3Array = [];
 
 			for(var i = 0; i<response.Total.length; i=i+jumpInterval){
 				labelArray.push("");
-				dataArray.push(response.Total[i]);
+				totalArray.push(response.Total[i]);
+				l1Array.push(response["L1.Power"][i]);
+				l2Array.push(response["L2.Power"][i]);
+				l3Array.push(response["L3.Power"][i]);
 			}
 			
 			var data = {
 				labels: labelArray,
 				series:[{
-					data: dataArray
-				}]
+					data: totalArray
+				},
+				{
+					data: l1Array
+				},
+				{
+					data: l2Array
+				},
+				{
+					data: l3Array
+				}
+				]
 			};
 
 			var options = {
@@ -69,9 +85,18 @@ function updateDiagramm(){
 	powerRequest.onreadystatechange=function(){
 		if(powerRequest.readyState==4 && powerRequest.status==200){	
 			var response = JSON.parse(this.responseText);
-			var newData = powerChart.data.series[0].data.slice(1,powerChart.data.series[0].data.length);
-			newData.push(response.Total[0]);
-			powerChart.data.series[0].data = newData;
+			var newTotalData = powerChart.data.series[0].data.slice(1,powerChart.data.series[0].data.length);
+			var newL1Data = powerChart.data.series[1].data.slice(1,powerChart.data.series[1].data.length);
+			var newL2Data = powerChart.data.series[2].data.slice(1,powerChart.data.series[2].data.length);
+			var newL3Data = powerChart.data.series[3].data.slice(1,powerChart.data.series[3].data.length);
+			newTotalData.push(response.Total[0]);
+			newL1Data.push(response["L1.Power"][0]);
+			newL2Data.push(response["L2.Power"][0]);
+			newL3Data.push(response["L3.Power"][0]);
+			powerChart.data.series[0].data = newTotalData;
+			powerChart.data.series[1].data = newL1Data;
+			powerChart.data.series[2].data = newL2Data;
+			powerChart.data.series[3].data = newL3Data;
 			powerChart.update();
 
 			document.getElementById("total").innerHTML = "Total: " + response.Total[0];
