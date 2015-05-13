@@ -29,7 +29,7 @@ function createGraph(){
 
 			var options = {
 				width: '1050px',
-				height: '730px',
+				height: '900px',
 				showPoint: false,
 				lineSmooth: false,
 				axisX: {
