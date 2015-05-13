@@ -1,5 +1,6 @@
 body {
 	margin: 0;
+  overflow: hidden;
 }
 
 header{
@@ -18,7 +19,7 @@ footer{
 }
 
 p, span, table{
-  font-family: "arial";
+  font-family: "arial", "sans-serif";
   font-weight: bold;
 }
 
