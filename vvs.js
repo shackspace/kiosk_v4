@@ -45,7 +45,7 @@ function update(){
 				}
 
 				fillTable(vvs_directionHBF, "tableHBF");
-				document.getElementById("tableHBF").style.top = 490-(65*vvs_directionHBF.length); //Adjust the anchor
+				document.getElementById("tableHBF").style.top = 490-(55*vvs_directionHBF.length); //Adjust the anchor
 				fillTable(vvs_directionUTH, "tableUTH");
 			}
 		}
