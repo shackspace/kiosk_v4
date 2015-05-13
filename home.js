@@ -9,6 +9,14 @@ function requestMPDInformation(){
 			response = JSON.parse(mpdRequest.responseText);
 			console.log(response);
 			document.getElementById("mpd").innerHTML=response.artist + " - " + response.title;
+
+			//A little "responsive" scaling here. Not very responsive indeed.
+			if((response.artist + " - " + response.title).length*25 > document.getElementById("mpdDiv").clientWidth){
+				document.getElementById("mpd").style.fontSize = "20px";
+			}
+			else{
+				document.getElementById("mpd").style.fontSize = "40px";
+			}
 		}
 	}
 
@@ -42,7 +50,9 @@ function requestTempInformation(){
 		if(tempRequest.readyState==4 && tempRequest.status==200){
 			response = JSON.parse(tempRequest.responseText);
 			console.log(response);
-			document.getElementById("temp").innerHTML=response[0] + " &degC";
+			if(response[0] != "No Data"){
+				document.getElementById("temp").innerHTML=response[0] + " &degC";
+			}
 		}
 	}
 
@@ -59,7 +69,9 @@ function requestHumidityInformation(){
 		if(humidityRequest.readyState==4 && humidityRequest.status==200){
 			response = JSON.parse(humidityRequest.responseText);
 			console.log(response);
-			document.getElementById("humidity").innerHTML=response[0] + "%";
+			if(response[0] != "No Data"){
+				document.getElementById("humidity").innerHTML=response[0] + "%";
+			}
 		}
 	}
 
@@ -100,19 +112,23 @@ function requestKeyInformation(){
 	keyRequest.send();
 }
 
+document.onreadystatechange = function() {
+	var state = document.readyState;
+	if(state == 'complete') {
+		requestMPDInformation();
+		requestPowerInformation();
+		requestTempInformation();
+		requestHumidityInformation();
+		requestBTCInformation();
+		requestKeyInformation();
 
-requestMPDInformation();
-requestPowerInformation();
-requestTempInformation();
-requestHumidityInformation();
-requestBTCInformation();
-requestKeyInformation();
-
-setInterval(function(){
-	requestMPDInformation();
-	requestPowerInformation();
-	requestTempInformation();
-	requestHumidityInformation();
-	requestBTCInformation();
-	requestKeyInformation();
-}, 10000);
+		setInterval(function(){
+			requestMPDInformation();
+			requestPowerInformation();
+			requestTempInformation();
+			requestHumidityInformation();
+			requestBTCInformation();
+			requestKeyInformation();
+		}, 10000);
+	}
+}
