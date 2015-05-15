@@ -8,7 +8,12 @@ function requestMPDInformation(){
 		if(mpdRequest.readyState==4 && mpdRequest.status==200){
 			response = JSON.parse(mpdRequest.responseText);
 			console.log(response);
-			document.getElementById("mpd").innerHTML=response.artist + " - " + response.title;
+			if(response.artist == "undefined" && response.title == "undefined"){
+				document.getElementById("mpd").innerHTML= "MPD disabled"
+			}
+			else{
+				document.getElementById("mpd").innerHTML=response.artist + " - " + response.title;
+			}
 		}
 	}
 
