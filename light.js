@@ -25,6 +25,7 @@ function bindClickEvents(){
 				lightIDs[id+"-light-1"] = 0;
 				setLightDisplay(id, "off");
 			}
+			updateBackground();
 		}
 	}
 }
@@ -47,6 +48,20 @@ function updateLightStatus(){
 	}
 }
 
+function updateBackground(){
+	backName = ".png";
+
+	backName = (lightIDs["8-light-1"] == 1 ? "1" : "0") + backName;
+	backName = (lightIDs["5-light-1"] == 1 || lightIDs["6-light-1"] == 1 || lightIDs["7-light-1"] == 1 ? "1" : "0") + backName;
+	backName = (lightIDs["2-light-1"] == 1 || lightIDs["4-light-1"] == 1 ? "1" : "0") + backName;
+	backName = (lightIDs["1-light-1"] == 1 || lightIDs["3-light-1"] == 1 ? "1" : "0") + backName;
+	
+	backName = "./images_light/zone" + backName;
+	console.log("Taking Image: " + backName);
+
+	document.getElementById("background").src = backName;
+}
+
 var lightIDs = {"1-light-1": 0,
 				"2-light-1": 0,
 				"3-light-1": 0,
@@ -62,6 +77,7 @@ document.onreadystatechange = function() {
 	if(state == 'complete') {
 		updateLightStatus();
 		bindClickEvents();
+		updateBackground();
 		window.setInterval(function(){updateLightStatus()}, 5000);
 	}
 }
