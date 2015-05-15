@@ -42,6 +42,7 @@ function updateLightStatus(){
 				response = JSON.parse(this.responseText);
 				document.getElementById(response.id+"-light-1").src= "./images_light/" + response.id + (response.state == "off" ? "-red" : "-green") + "-1.png";
 				setLightDisplay(response.id, response.state);
+				updateBackground(); //This may get a problem performancewise
 			}
 		}
 		lightRequest.send(); //Start the request we just added
@@ -77,7 +78,6 @@ document.onreadystatechange = function() {
 	if(state == 'complete') {
 		updateLightStatus();
 		bindClickEvents();
-		updateBackground();
 		window.setInterval(function(){updateLightStatus()}, 5000);
 	}
 }
