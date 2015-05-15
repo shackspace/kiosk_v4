@@ -102,7 +102,7 @@ function requestKeyInformation(){
 		if(keyRequest.readyState==4 && keyRequest.status==200){
 			response = JSON.parse(keyRequest.responseText);
 			console.log(response);
-			document.getElementById("keyholder").innerHTML="Key: " + response.keyholder;
+			document.getElementById("keyholder").innerHTML= response.keyholder;
 		}
 	}
 
