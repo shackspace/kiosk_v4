@@ -8,7 +8,7 @@ function requestMPDInformation(){
 		if(mpdRequest.readyState==4 && mpdRequest.status==200){
 			response = JSON.parse(mpdRequest.responseText);
 			console.log(response);
-			if(response.artist == "undefined" && response.title == "undefined"){
+			if(response.error){
 				document.getElementById("mpd").innerHTML= "MPD disabled"
 			}
 			else{
