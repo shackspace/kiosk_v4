@@ -30,7 +30,7 @@ function update(){
 						logoCell.style.paddingRight = "20px";
 						var destinationCell = departureRow.insertCell()
 						destinationCell.innerHTML = departure.direction; //Set direction
-						destinationCell.style.maxWidth="350px";
+						destinationCell.style.maxWidth="370px";
 						var minutesLeft = 0;
 						minutesLeft = (parseInt(departure.departureTime.substr(0, 4))*365*24*60)-(parseInt(response.requestTime.substr(0,4))*365*24*60);  //Get the year
 						minutesLeft = minutesLeft + (parseInt(departure.departureTime.substr(4, 2))*12*24*60)-(parseInt(response.requestTime.substr(4,2))*12*24*60);  //Get the month
