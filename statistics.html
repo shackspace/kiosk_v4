@@ -1,0 +1,56 @@
+<html>
+<head>
+	<link rel="stylesheet" href="style.css">
+	<title>shack kiosk interface</title>
+	<script src="./home.js"></script>
+</head>
+<body bgcolor="#000">
+	<a href="index.html">
+		<img id="homeButton" src="./images_common/logo_home.png" style="position:absolute; top: 20px; left:20px; width:150px;"></img>
+	</a>
+	<p style="margin-top: 60px; margin-left: 200px; font-size: 60px; color:#00baff;">information</p>
+	<table style="margin-left: 200px; font-size: 30px">
+		<tr style="color: #6f6">
+			<td>people@shack:</td>
+			<td id="users">Loading.. </td>
+		</tr>
+		<tr style="color: #00baff">
+			<td style="width: 400px">Power consumption:</td>
+			<td id="power">Loading...</td>
+		</tr>
+		<tr style="color: #6f6">
+			<td>Keyholder:</td>
+			<td id="keyholder">Loading...</td>
+		</tr>
+		<tr style="color: #00baff">
+			<td>Radiation Level:</td>
+			<td id="radiation">To come</td>
+		</tr>
+		<tr style="color: #6f6">
+			<td>Bitcoin:</td>
+			<td id="btc">Loading..</td>
+		</tr>
+		<tr style="color: #00baff">
+			<td>Environment:</td>
+			<td>
+				<div id="temp">Loading..</div>
+				<div id="humidity">Loading..</div>
+			</td>
+		</tr>
+		<tr style="color: #6f6">
+			<td>Gelber Sack:</td>
+			<td id="sack">Loading</td>
+		</tr>
+		<tr style="color: #00baff">
+			<td>MPD Status:</td>
+			<td style="border-style: solid; border-width: 2px; border-color:#00baff;">
+				<p id="mpd">Loading</p>
+				<img style="width: 100px" src="./images_home/testimage.jpg"></img>
+				<img style="width: 100px;" src="./images_home/testimage.jpg"></img>
+				<img style="width: 100px" src="./images_home/testimage.jpg"></img>
+			</td>
+		</tr>
+	</table>
+	<script src="./statistics.js"></script>
+</body>
+</html>
