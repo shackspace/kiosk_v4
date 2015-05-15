@@ -73,7 +73,7 @@ function createGraph(){
 			document.getElementById("l2").innerHTML = "L2: " + response["L2.Power"][response["L2.Power"].length-1];
 			document.getElementById("l3").innerHTML = "L3: " + response["L3.Power"][response["L3.Power"].length-1];
 
-			//updateTimer = window.setInterval(function(){updateDiagramm()}, 2000*jumpInterval); //Restart the timer
+			updateTimer = window.setInterval(function(){updateDiagramm()}, 2000*jumpInterval); //Restart the timer
 			registerClickListeners(); //Re-register the click listeners
 		}
 	}
