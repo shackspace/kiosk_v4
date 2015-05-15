@@ -19,7 +19,7 @@ function createGraph(){
 			var l3Array = [];
 
 			for(var i = 0; i<response.Total.length; i=i+jumpInterval){
-				labelArray.push("");
+				labelArray.push(i);
 				totalArray.push(response.Total[i]);
 				l1Array.push(response["L1.Power"][i]);
 				l2Array.push(response["L2.Power"][i]);
@@ -48,6 +48,9 @@ function createGraph(){
 				height: '900px',
 				showPoint: false,
 				lineSmooth: false,
+				onlyInteger: true,
+				
+				low: 0,
 				axisX: {
 					showGrid: false,
 					showLabel: false,
@@ -55,7 +58,8 @@ function createGraph(){
 				axisY: {
 					labelInterpolationFnc: function skipLabels(value, index) {
 						return index % 5  === 0 ? value : null;
-					}
+					},
+					offset: 90
 				}
 			};
 			
@@ -69,7 +73,7 @@ function createGraph(){
 			document.getElementById("l2").innerHTML = "L2: " + response["L2.Power"][response["L2.Power"].length-1];
 			document.getElementById("l3").innerHTML = "L3: " + response["L3.Power"][response["L3.Power"].length-1];
 
-			updateTimer = window.setInterval(function(){updateDiagramm()}, 2000*jumpInterval); //Restart the timer
+			//updateTimer = window.setInterval(function(){updateDiagramm()}, 2000*jumpInterval); //Restart the timer
 			registerClickListeners(); //Re-register the click listeners
 		}
 	}

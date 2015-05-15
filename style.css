@@ -55,7 +55,9 @@ img{
 .button {
   height: calc((100vh - 300px) / 2 - 50px);
 }
-
+.ct-series{
+  fill-opacity: 0;
+}
 .ct-series-a{
   stroke: #bbf;
   fill: "none";
