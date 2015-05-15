@@ -30,7 +30,7 @@ function update(){
 						logoCell.style.paddingRight = "20px";
 						var destinationCell = departureRow.insertCell()
 						destinationCell.innerHTML = departure.direction; //Set direction
-						destinationCell.style.maxWidth="390px";
+						destinationCell.style.maxWidth = "450px"; //Break to long station names
 						var minutesLeft = 0;
 						minutesLeft = (parseInt(departure.departureTime.substr(0, 4))*365*24*60)-(parseInt(response.requestTime.substr(0,4))*365*24*60);  //Get the year
 						minutesLeft = minutesLeft + (parseInt(departure.departureTime.substr(4, 2))*12*24*60)-(parseInt(response.requestTime.substr(4,2))*12*24*60);  //Get the month
@@ -39,7 +39,7 @@ function update(){
 						minutesLeft = minutesLeft + parseInt(departure.departureTime.substr(10, 2))-parseInt(response.requestTime.substr(10,2));  //Get the minute
 						var minutesCell = departureRow.insertCell();
 						minutesCell.innerHTML = minutesLeft + "min"; //Set time left
-						minutesCell.style.paddingLeft = "100px";
+						(destinationCell.clientWidth > 400 ? minutesCell.style.paddingLeft = "30px" : minutesCell.style.paddingLeft = "100px"); //Make long station names readable
 						if(minutesLeft < 4){
 							minutesCell.style.color = "f00";
 						}
