@@ -133,6 +133,41 @@ function requestPeopleInformation(){
 	peopleRequest.send();
 }
 
+function requestHackerspaceInformation(){
+	var listRequest = null;
+	listRequest = new XMLHttpRequest();
+	listRequest.open("GET", "http://localhost:8080/wd.lst", true);
+	//listRequest.setRequestHeader("Content-type","application/json");
+
+	listRequest.onreadystatechange=function(){
+		if(this.readyState==4 && this.status==200){
+			var spaceURLs = this.responseText.split("\n");
+			for(key in spaceURLs){
+				url = spaceURLs[key];
+				var hackerspaceRequest = null;
+				hackerspaceRequest = new XMLHttpRequest();
+				hackerspaceRequest.open("GET", url, true);
+				hackerspaceRequest.setRequestHeader("Content-type","application/json");
+
+				hackerspaceRequest.onreadystatechange = function(){
+					if(this.readyState==4 && this.status==200){
+						var response = JSON.parse(this.responseText);
+						if(response.state.open){
+							spacesOpen++;
+						}
+						spacesTotal++;
+						document.getElementById("spaces").innerHTML = spacesOpen + "/" + spacesTotal;
+					}
+				}
+				
+				hackerspaceRequest.send();
+			}
+		}
+	}
+
+	listRequest.send();
+}
+
 function calculateSack(){
 	var gelberSack = ["13.04.", "04.05.", "23.05.","15.06.","06.07.","27.07.","17.08.","07.09.","28.09.","19.10.","09.11.","30.11.","21.12."];
 	var now = new Date();
@@ -144,8 +179,11 @@ function calculateSack(){
 			}
 		}
 	}
-	
 }
+
+var spacesOpen = 0;
+var spacesTotal = 0;
+
 document.onreadystatechange = function() {
 	var state = document.readyState;
 	if(state == 'complete') {
@@ -157,6 +195,7 @@ document.onreadystatechange = function() {
 		requestBTCInformation();
 		requestKeyInformation();
 		calculateSack();
+		requestHackerspaceInformation()
 
 		setInterval(function(){
 			requestPeopleInformation();
