@@ -151,12 +151,14 @@ function requestHackerspaceInformation(){
 
 				hackerspaceRequest.onreadystatechange = function(){
 					if(this.readyState==4 && this.status==200){
-						var response = JSON.parse(this.responseText);
-						if(response.state.open){
-							spacesOpen++;
+						try{ //Spaces may implement the API wrong and we dont want to see all the errors
+							var response = JSON.parse(this.responseText);
+							if(response.state.open){
+								spacesOpen++;
+							}
+							spacesTotal++;
+							document.getElementById("spaces").innerHTML = spacesOpen + "/" + spacesTotal;
 						}
-						spacesTotal++;
-						document.getElementById("spaces").innerHTML = spacesOpen + "/" + spacesTotal;
 					}
 				}
 				
