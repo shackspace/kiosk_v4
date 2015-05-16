@@ -159,6 +159,9 @@ function requestHackerspaceInformation(){
 							spacesTotal++;
 							document.getElementById("spaces").innerHTML = spacesOpen + "/" + spacesTotal;
 						}
+						catch(e){
+							console.log(e);
+						}
 					}
 				}
 				
