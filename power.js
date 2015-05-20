@@ -11,7 +11,7 @@ function createGraph(){
 	powerRequest.onreadystatechange=function(){
 		if(powerRequest.readyState==4 && powerRequest.status==200){
 			response = JSON.parse(this.responseText);
-			console.log(response);
+			console.log(this);
 			var labelArray = [];
 			var totalArray = [];
 			var l1Array = [];
