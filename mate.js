@@ -2,13 +2,13 @@ function createGraph(){
 	var mateRequest = null;
 	var requestsCompleted = 0;
 	var mateStates = {
-			"Wasser": 0,
-			"Mate Cola": 0,
-			"Apfelschorle": 0,
-			"ACE": 0,
-			"Mate 1": 0,
-			"Mate 2": 0
-		};
+		"Wasser": 0,
+		"Mate Cola": 0,
+		"Apfelschorle": 0,
+		"ACE": 0,
+		"Mate 1": 0,
+		"Mate 2": 0
+	};
 		
 	for(var requests = 1; requests <= 6; requests++){
 		mateRequest = new XMLHttpRequest();
@@ -71,14 +71,20 @@ function createGraph(){
 
 					//Color the bars based on their size
 					for(barNr in mateChart.datasets[0].bars){
-						if(mateChart.datasets[0].bars[barNr].value >= 6){
-							mateChart.datasets[0].bars[barNr].fillColor = "green";
-						}
-						else if(mateChart.datasets[0].bars[barNr].value <= 3){
-							mateChart.datasets[0].bars[barNr].fillColor = "red";
-						}
-						else{
-							mateChart.datasets[0].bars[barNr].fillColor = "yellow";
+						if(mateChart.datasets[0].bars[barNr].key != "Mate Cola"){
+							if(mateChart.datasets[0].bars[barNr].value > 13){
+								mateChart.datasets[0].bars[barNr].fillColor = "green";
+							}
+							else if(mateChart.datasets[0].bars[barNr].value > 6){
+								mateChart.datasets[0].bars[barNr].fillColor = "greenyellow";
+							}
+							else if(mateChart.datasets[0].bars[barNr].value > 3){
+								mateChart.datasets[0].bars[barNr].fillColor = "yellow";
+							}
+							else{
+								mateChart.datasets[0].bars[barNr].fillColor = "red"
+							}
+							
 						}
 						mateChart.update();
 					}
