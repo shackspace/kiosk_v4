@@ -71,7 +71,7 @@ function createGraph(){
 
 					//Color the bars based on their size
 					for(barNr in mateChart.datasets[0].bars){
-						if(mateChart.datasets[0].bars[barNr].key != "Mate Cola"){
+						if(mateChart.datasets[0].bars[barNr].label != "Mate Cola"){
 							if(mateChart.datasets[0].bars[barNr].value > 13){
 								mateChart.datasets[0].bars[barNr].fillColor = "green";
 							}
@@ -84,7 +84,20 @@ function createGraph(){
 							else{
 								mateChart.datasets[0].bars[barNr].fillColor = "red"
 							}
-							
+						}
+						else{
+							if(mateChart.datasets[0].bars[barNr].value > 17){
+								mateChart.datasets[0].bars[barNr].fillColor = "green";
+							}
+							else if(mateChart.datasets[0].bars[barNr].value > 6){
+								mateChart.datasets[0].bars[barNr].fillColor = "greenyellow";
+							}
+							else if(mateChart.datasets[0].bars[barNr].value > 3){
+								mateChart.datasets[0].bars[barNr].fillColor = "yellow";
+							}
+							else{
+								mateChart.datasets[0].bars[barNr].fillColor = "red"
+							}
 						}
 						mateChart.update();
 					}
