@@ -45,7 +45,7 @@ function createGraph(){
 
 			var options = {
 				width: '1050px',
-				height: '900px',
+				height: '850px',
 				showPoint: false,
 				lineSmooth: false,
 				onlyInteger: true,
@@ -68,10 +68,10 @@ function createGraph(){
 			powerChart = new Chartist.Line("#powerChart", data, options);
 			console.log(powerChart);
 			
-			document.getElementById("total").innerHTML = "Total: " + response.Total[response.Total.length-1];
-			document.getElementById("l1").innerHTML = "L1: " + response["L1.Power"][response["L1.Power"].length-1];
-			document.getElementById("l2").innerHTML = "L2: " + response["L2.Power"][response["L2.Power"].length-1];
-			document.getElementById("l3").innerHTML = "L3: " + response["L3.Power"][response["L3.Power"].length-1];
+			document.getElementById("total").innerHTML = "Total: " + response.Total[response.Total.length-1] +"W";
+			document.getElementById("l1").innerHTML = "L1: " + response["L1.Power"][response["L1.Power"].length-1]+"W";
+			document.getElementById("l2").innerHTML = "L2: " + response["L2.Power"][response["L2.Power"].length-1]+"W";
+			document.getElementById("l3").innerHTML = "L3: " + response["L3.Power"][response["L3.Power"].length-1]+"W";
 
 			updateTimer = window.setInterval(function(){updateDiagramm()}, 2000*jumpInterval); //Restart the timer
 			registerClickListeners(); //Re-register the click listeners
@@ -103,13 +103,37 @@ function updateDiagramm(){
 			powerChart.data.series[3].data = newL3Data;
 			powerChart.update();
 
-			document.getElementById("total").innerHTML = "Total: " + response.Total[0];
-			document.getElementById("l1").innerHTML = "L1: " + response["L1.Power"][0];
-			document.getElementById("l2").innerHTML = "L2: " + response["L2.Power"][0];
-			document.getElementById("l3").innerHTML = "L3: " + response["L3.Power"][0];
+			document.getElementById("total").innerHTML = "Total: " + response.Total[0]+"W";
+			document.getElementById("l1").innerHTML = "L1: " + response["L1.Power"][0]+"W";
+			document.getElementById("l2").innerHTML = "L2: " + response["L2.Power"][0]+"W";
+			document.getElementById("l3").innerHTML = "L3: " + response["L3.Power"][0]+"W";
 		}
 	}
 	powerRequest.send();
+	updatePowerrawValues();
+}
+
+function updatePowerrawValues(){
+	//We do not get all values from glados, so we ask powerraw directly
+	rawRequest = new XMLHttpRequest();
+	rawRequest.open("GET", "http://powerraw.shack:11111");
+	rawRequest.onreadystatechange=function(){
+		if(rawRequest.readyState==4){
+			splitRequest = this.responseText.split("\n");
+			for(key in splitRequest){
+				if(splitRequest[key].substr(0, 10) == "1-0:32.7.0"){
+					document.getElementById("voltagel1").innerHTML = splitRequest[key].split("(")[1].split("*")[0] +"V";
+				}
+				else if(splitRequest[key].substr(0, 10) == "1-0:52.7.0"){
+					document.getElementById("voltagel2").innerHTML = splitRequest[key].split("(")[1].split("*")[0] +"V";
+				}
+				else if(splitRequest[key].substr(0, 10) == "1-0:72.7.0"){
+					document.getElementById("voltagel3").innerHTML = splitRequest[key].split("(")[1].split("*")[0] +"V";
+				}
+			}
+		}
+	}
+	rawRequest.send();
 }
 
 function registerClickListeners(){
@@ -150,6 +174,7 @@ var jumpInterval = 1; //Every n-th Element is drawn on the chart
 document.onreadystatechange = function() {
 	var state = document.readyState;
 	if(state == 'complete') {
+		updatePowerrawValues();
 		createGraph();
 		registerClickListeners();
 	}
