@@ -10,7 +10,7 @@ function update(){
 			// FIXME: get currentdate from request
 			var currentdate = new Date();
 			for(var key in response){
-				if(response[key]["direction"] == "Untertürkheim" || response[key]["direction"] == "Hedelfingen"){
+				if(response[key]["direction"].substr(0,6) == "Untertürkheim".substr(0,6) || response[key]["direction"] == "Hedelfingen"){
 					vvs_directionUTH.push(response[key]);
 				}
 				else{
