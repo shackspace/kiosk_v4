@@ -173,17 +173,21 @@ function requestHackerspaceInformation(){
 	listRequest.send();
 }
 
-function calculateSack(){
-	var gelberSack = ["13.04.", "04.05.", "23.05.","15.06.","06.07.","27.07.","17.08.","07.09.","28.09.","19.10.","09.11.","30.11.","21.12."];
-	var now = new Date();
-	for(key in gelberSack){
-		if(gelberSack[key].slice(3,5) >= now.getMonth()){
-			if(gelberSack[key].slice(0, 2) >= now.getDate()){
-				document.getElementById("sack").innerHTML = gelberSack[key];
-				break;
-			}
+function requestGelberSack(){
+	var keyRequest = null;
+	sackRequest = new XMLHttpRequest();
+	sackRequest.open("GET", "http://openhab.shack/muellshack/gelber_sack", true);
+	sackRequest.setRequestHeader("Content-type","application/json");
+
+	sackRequest.onreadystatechange=function(){
+		if(sackRequest.readyState==4 && sackRequest.status==200){
+			response = JSON.parse(sackRequest.responseText);
+			var sackdate = new Date(response.gelber_sack);
+			document.getElementById("sack").innerHTML= sackdate.toLocaleFormat('%d.%m.%Y');
 		}
 	}
+
+	sackRequest.send();
 }
 
 var spacesOpen = 0;
