@@ -183,7 +183,8 @@ function requestGelberSack(){
 		if(sackRequest.readyState==4 && sackRequest.status==200){
 			response = JSON.parse(sackRequest.responseText);
 			var sackdate = new Date(response.gelber_sack);
-			document.getElementById("sack").innerHTML= sackdate.toLocaleFormat('%d.%m.%Y');
+			var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+			document.getElementById("sack").innerHTML= sackdate.toLocaleDateString('de-DE', options);
 		}
 	}
 
