@@ -191,6 +191,42 @@ function requestGelberSack(){
 	sackRequest.send();
 }
 
+function requestPapierMuell(){
+	var keyRequest = null;
+	papiermuellRequest = new XMLHttpRequest();
+	papiermuellRequest.open("GET", "http://openhab.shack/muellshack/papiermuell", true);
+	papiermuellRequest.setRequestHeader("Content-type","application/json");
+
+	papiermuellRequest.onreadystatechange=function(){
+		if(papiermuellRequest.readyState==4 && papiermuellRequest.status==200){
+			response = JSON.parse(papiermuellRequest.responseText);
+			var muelldate = new Date(response.papiermuell);
+			var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+			document.getElementById("papier").innerHTML= muelldate.toLocaleDateString('de-DE', options);
+		}
+	}
+
+	papiermuellRequest.send();
+}
+
+function requestRestMuell(){
+	var keyRequest = null;
+	restmuellRequest = new XMLHttpRequest();
+	restmuellRequest.open("GET", "http://openhab.shack/muellshack/restmuell", true);
+	restmuellRequest.setRequestHeader("Content-type","application/json");
+
+	restmuellRequest.onreadystatechange=function(){
+		if(restmuellRequest.readyState==4 && restmuellRequest.status==200){
+			response = JSON.parse(restmuellRequest.responseText);
+			var muelldate = new Date(response.restmuell);
+			var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+			document.getElementById("rest").innerHTML= muelldate.toLocaleDateString('de-DE', options);
+		}
+	}
+
+	restmuellRequest.send();
+}
+
 var spacesOpen = 0;
 var spacesTotal = 0;
 
@@ -205,6 +241,8 @@ document.onreadystatechange = function() {
 		requestBTCInformation();
 		requestKeyInformation();
 		requestGelberSack();
+		requestPapierMuell();
+		requestRestMuell();
 		requestHackerspaceInformation()
 
 		setInterval(function(){
