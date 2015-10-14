@@ -184,10 +184,10 @@ function requestGelberSack(){
 			response = JSON.parse(sackRequest.responseText);
 			var sackdate = new Date(response.gelber_sack);
 			if ( isNaN( muelldate.getTime() ) ) {
-				document.getElementById("rest").innerHTML= "kein Termin vorhanden";
+				document.getElementById("sack").innerHTML= "kein Termin vorhanden";
 			} else {
 				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-				document.getElementById("rest").innerHTML= muelldate.toLocaleDateString('de-DE', options);
+				document.getElementById("sack").innerHTML= muelldate.toLocaleDateString('de-DE', options);
 			}
 		}
 	}
@@ -206,10 +206,10 @@ function requestPapierMuell(){
 			response = JSON.parse(papiermuellRequest.responseText);
 			var muelldate = new Date(response.papiermuell);
 			if ( isNaN( muelldate.getTime() ) ) {
-				document.getElementById("rest").innerHTML= "kein Termin vorhanden";
+				document.getElementById("papier").innerHTML= "kein Termin vorhanden";
 			} else {
 				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-				document.getElementById("rest").innerHTML= muelldate.toLocaleDateString('de-DE', options);
+				document.getElementById("papier").innerHTML= muelldate.toLocaleDateString('de-DE', options);
 			}
 		}
 	}
