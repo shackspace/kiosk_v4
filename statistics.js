@@ -183,11 +183,11 @@ function requestGelberSack(){
 		if(sackRequest.readyState==4 && sackRequest.status==200){
 			response = JSON.parse(sackRequest.responseText);
 			var sackdate = new Date(response.gelber_sack);
-			if ( isNaN( muelldate.getTime() ) ) {
+			if ( isNaN( sackdate.getTime() ) ) {
 				document.getElementById("sack").innerHTML= "kein Termin vorhanden";
 			} else {
 				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-				document.getElementById("sack").innerHTML= muelldate.toLocaleDateString('de-DE', options);
+				document.getElementById("sack").innerHTML= sackdate.toLocaleDateString('de-DE', options);
 			}
 		}
 	}
