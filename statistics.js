@@ -183,8 +183,12 @@ function requestGelberSack(){
 		if(sackRequest.readyState==4 && sackRequest.status==200){
 			response = JSON.parse(sackRequest.responseText);
 			var sackdate = new Date(response.gelber_sack);
-			var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-			document.getElementById("sack").innerHTML= sackdate.toLocaleDateString('de-DE', options);
+			if ( isNaN( muelldate.getTime() ) ) {
+				document.getElementById("rest").innerHTML= "kein Termin vorhanden";
+			} else {
+				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+				document.getElementById("rest").innerHTML= muelldate.toLocaleDateString('de-DE', options);
+			}
 		}
 	}
 
@@ -201,8 +205,12 @@ function requestPapierMuell(){
 		if(papiermuellRequest.readyState==4 && papiermuellRequest.status==200){
 			response = JSON.parse(papiermuellRequest.responseText);
 			var muelldate = new Date(response.papiermuell);
-			var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-			document.getElementById("papier").innerHTML= muelldate.toLocaleDateString('de-DE', options);
+			if ( isNaN( muelldate.getTime() ) ) {
+				document.getElementById("rest").innerHTML= "kein Termin vorhanden";
+			} else {
+				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+				document.getElementById("rest").innerHTML= muelldate.toLocaleDateString('de-DE', options);
+			}
 		}
 	}
 
@@ -219,8 +227,12 @@ function requestRestMuell(){
 		if(restmuellRequest.readyState==4 && restmuellRequest.status==200){
 			response = JSON.parse(restmuellRequest.responseText);
 			var muelldate = new Date(response.restmuell);
-			var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-			document.getElementById("rest").innerHTML= muelldate.toLocaleDateString('de-DE', options);
+			if ( isNaN( muelldate.getTime() ) ) {
+				document.getElementById("rest").innerHTML= "kein Termin vorhanden";
+			} else {
+				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+				document.getElementById("rest").innerHTML= muelldate.toLocaleDateString('de-DE', options);
+			}
 		}
 	}
 
