@@ -239,6 +239,21 @@ function requestRestMuell(){
 	restmuellRequest.send();
 }
 
+function requestIssues(){
+    issuesRequest = new XMLHttpRequest();
+    issuesRequest.open("GET", "https://api.github.com/repos/shackspace/spaceIssues/issues?state=open", true);
+    issuesRequest.setRequestHeader("Content-type", "application/json");
+    
+    issuesRequest.onreadystatechange=function() {
+        if(issuesRequest.readyState==4 && issuesRequest.status==200){
+            response = JSON.parse(issuesRequest.responseText);
+            document.getElementById("issues").innerHTML = response.length;
+        }
+    }
+
+    issuesRequest.send();
+}
+
 var spacesOpen = 0;
 var spacesTotal = 0;
 
@@ -255,7 +270,8 @@ document.onreadystatechange = function() {
 		requestGelberSack();
 		requestPapierMuell();
 		requestRestMuell();
-		requestHackerspaceInformation()
+		requestHackerspaceInformation();
+        requestIssues();
 
 		setInterval(function(){
 			requestPeopleInformation();
