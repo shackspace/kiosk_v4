@@ -3,12 +3,37 @@ function toggleMPD(){
 	mpdRequest.open("GET", "http://shack.shack:5000/mpd/lounge/toggle", true);
 	mpdRequest.setRequestHeader("Content-type","application/json");
 	mpdRequest.send();
+			
 	if(document.getElementById("MPDbutton").src.split("/").slice(-1)[0] == "logo_mpd_stop.png"){ //I just wanted to select the last element :(
 		document.getElementById("MPDbutton").src = "./images_home/logo_mpd_start.png";
 	}
 	else{
 		document.getElementById("MPDbutton").src = "./images_home/logo_mpd_stop.png";
 	}
+
+	updateMPDButton();
+}
+
+function updateMPDButton(){
+	var mpdStatus = new XMLHttpRequest();
+	mpdStatus.open("GET", "http://shack.shack:5000/mpd/lounge/status", true);
+	mpdStatus.setRequestHeader("Content-type","application/json");
+
+	mpdStatus.onreadystatechange=function(){
+		if(mpdStatus.readyState==4 && mpdStatus.status==200){
+			response = JSON.parse(mpdStatus.responseText);
+			console.log(response);
+			if(response.status == "play"){
+				document.getElementById("MPDbutton").src = "./images_home/logo_mpd_stop.png";
+			}
+			else{
+				document.getElementById("MPDbutton").src = "./images_home/logo_mpd_start.png";
+			}
+		}
+	}
+
+	mpdStatus.send();	
+
 }
 
 function requestMPDInformation(){
@@ -237,6 +262,7 @@ document.onreadystatechange = function() {
 		requestGelberSack();
 		requestPapiermuell();
 		requestRestmuell();
+		updateMPDButton();
 
 		setInterval(function(){
 			requestMPDInformation();
@@ -248,6 +274,7 @@ document.onreadystatechange = function() {
 			requestGelberSack();
 			requestPapiermuell();
 			requestRestmuell();
+			updateMPDButton();
 		}, 10000);
 	}
 }
