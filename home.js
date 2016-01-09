@@ -3,7 +3,7 @@ function toggleMPD(){
 	mpdRequest = new XMLHttpRequest();
 	mpdRequest.open("GET", "http://shack.shack:5000/mpd/lounge/toggle", true);
 	mpdRequest.setRequestHeader("Content-type","application/json");
-	//mpdRequest.send();
+	mpdRequest.send();
 	if(document.getElementById("MPDbutton").src.split("/").slice(-1)[0] == "logo_mpd_stop.png"){ //I just wanted to select the last element :(
 		document.getElementById("MPDbutton").src = "./images_home/logo_mpd_start.png";
 	}
@@ -27,7 +27,7 @@ function requestMPDInformation(){
 				document.getElementById("mpd").innerHTML= "MPD disabled"
 			}
 			else{
-				document.getElementById("mpd").innerHTML=response.artist + " - " + response.title;
+				document.getElementById("mpd").innerHTML= response.title;
 			}
 
 			//A little "responsive" scaling here. Not very responsive indeed.
@@ -108,7 +108,7 @@ function requestBTCInformation(){
 		if(btcRequest.readyState==4 && btcRequest.status==200){
 			response = JSON.parse(btcRequest.responseText);
 			console.log(response);
-			document.getElementById("btc").innerHTML=response.btc_usd.avg.substring(0, 5) + "$";
+			document.getElementById("btc").innerHTML=response.btc_usd.avg.toString().substring(0, 5) + "$";
 		}
 	}
 
