@@ -1,7 +1,22 @@
+function toggleMPD(){
+	console.log("asd");
+	mpdRequest = new XMLHttpRequest();
+	mpdRequest.open("GET", "http://shack.shack:5000/mpd/lounge/toggle", true);
+	mpdRequest.setRequestHeader("Content-type","application/json");
+	//mpdRequest.send();
+	if(document.getElementById("MPDbutton").src.split("/").slice(-1)[0] == "logo_mpd_stop.png"){ //I just wanted to select the last element :(
+		document.getElementById("MPDbutton").src = "./images_home/logo_mpd_start.png";
+	}
+	else{
+		console.log("asdsadasd")
+		document.getElementById("MPDbutton").src = "./images_home/logo_mpd_stop.png";
+	}
+}
+
 function requestMPDInformation(){
 	var mpdRequest = null;
 	mpdRequest = new XMLHttpRequest();
-	mpdRequest.open("GET", "http://kiosk.shack:8080/mpd/status", true);
+	mpdRequest.open("GET", "http://shack.shack:5000/mpd/lounge/song", true);
 	mpdRequest.setRequestHeader("Content-type","application/json");
 
 	mpdRequest.onreadystatechange=function(){
@@ -86,14 +101,14 @@ function requestHumidityInformation(){
 function requestBTCInformation(){
 	var btcRequest = null;
 	btcRequest = new XMLHttpRequest();
-	btcRequest.open("GET", "http://kiosk.shack:8080/btc", true);
+	btcRequest.open("GET", "https://btc-e.com/api/3/ticker/btc_usd", true);
 	btcRequest.setRequestHeader("Content-type","application/json");
 
 	btcRequest.onreadystatechange=function(){
 		if(btcRequest.readyState==4 && btcRequest.status==200){
 			response = JSON.parse(btcRequest.responseText);
 			console.log(response);
-			document.getElementById("btc").innerHTML=response.btc + "$";
+			document.getElementById("btc").innerHTML=response.btc_usd.avg + "$";
 		}
 	}
 
