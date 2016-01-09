@@ -25,11 +25,16 @@ function requestMPDInformation(){
 				document.getElementById("mpd").innerHTML= "MPD disabled"
 			}
 			else{
-				document.getElementById("mpd").innerHTML= response.title;
+				if(!response.title){
+					document.getElementById("mpd").innerHTML= response.file;
+				}
+				else{
+					document.getElementById("mpd").innerHTML= response.title;	
+				}
 			}
 
 			//A little "responsive" scaling here. Not very responsive indeed.
-			if((response.artist + " - " + response.title).length*25 > document.getElementById("mpdDiv").clientWidth){
+			if(document.getElementById("mpd").innerHTML.length*25 > document.getElementById("mpdDiv").clientWidth){
 				document.getElementById("mpd").style.fontSize = "20px";
 			}
 			else{
@@ -114,8 +119,7 @@ function requestBTCInformation(){
 }
 
 function requestKeyInformation(){
-	var keyRequest = null;
-	keyRequest = new XMLHttpRequest();
+	var keyRequest = new XMLHttpRequest();
 	keyRequest.open("GET", "http://portal.shack:8088/status", true);
 	keyRequest.setRequestHeader("Content-type","application/json");
 
@@ -136,6 +140,91 @@ function requestKeyInformation(){
 	keyRequest.send();
 }
 
+function requestGelberSack(){
+	var sackRequest = new XMLHttpRequest();
+	sackRequest.open("GET", "http://openhab.shack/muellshack/gelber_sack", true);
+	sackRequest.setRequestHeader("Content-type","application/json");
+
+	sackRequest.onreadystatechange=function(){
+		if(sackRequest.readyState==4 && sackRequest.status==200){
+			response = JSON.parse(sackRequest.responseText);
+			var sackdate = new Date(response.gelber_sack);
+			if ( isNaN( sackdate.getTime() ) ) {
+				document.getElementById("gelbersack").innerHTML= "kein Termin vorhanden";
+			} else {
+				console.log(sackdate.getTime())
+				console.log(Date.now())
+				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+				document.getElementById("gelbersack").innerHTML= "Gelber Sack: " + sackdate.toLocaleDateString('de-DE', options);
+				if(sackdate.getTime() < Date.now()+60*60*24*1000){ //Color the date if its less than 24h away
+					document.getElementById("gelbersack").style.backgroundColor = "#f00";
+				}
+				else{
+					document.getElementById("gelbersack").style.backgroundColor = "#020";
+				}
+			}
+		}
+	}
+	sackRequest.send();
+}
+
+function requestPapiermuell(){
+	var sackRequest = new XMLHttpRequest();
+	sackRequest.open("GET", "http://openhab.shack/muellshack/papiermuell", true);
+	sackRequest.setRequestHeader("Content-type","application/json");
+
+	sackRequest.onreadystatechange=function(){
+		if(sackRequest.readyState==4 && sackRequest.status==200){
+			response = JSON.parse(sackRequest.responseText);
+			var sackdate = new Date(response.papiermuell);
+			if ( isNaN( sackdate.getTime() ) ) {
+				document.getElementById("papiermuell").innerHTML= "kein Termin vorhanden";
+			} else {
+				console.log(sackdate.getTime())
+				console.log(Date.now())
+				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+				document.getElementById("papiermuell").innerHTML= "Papiermuell: " + sackdate.toLocaleDateString('de-DE', options);
+				if(sackdate.getTime() < Date.now()+60*60*24*1000){ //Color the date if its less than 24h away
+					document.getElementById("papiermuell").style.backgroundColor = "#f00";
+				}
+				else{
+					document.getElementById("papiermuell").style.backgroundColor = "#020";
+				}
+			}
+		}
+	}
+	sackRequest.send();
+}
+
+
+function requestRestmuell(){
+	var sackRequest = new XMLHttpRequest();
+	sackRequest.open("GET", "http://openhab.shack/muellshack/restmuell", true);
+	sackRequest.setRequestHeader("Content-type","application/json");
+
+	sackRequest.onreadystatechange=function(){
+		if(sackRequest.readyState==4 && sackRequest.status==200){
+			response = JSON.parse(sackRequest.responseText);
+			var sackdate = new Date(response.restmuell);
+			if ( isNaN( sackdate.getTime() ) ) {
+				document.getElementById("restmuell").innerHTML= "kein Termin vorhanden";
+			} else {
+				console.log(sackdate.getTime())
+				console.log(Date.now())
+				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+				document.getElementById("restmuell").innerHTML= "Restmuell: " + sackdate.toLocaleDateString('de-DE', options);
+				if(sackdate.getTime() < Date.now()+60*60*24*1000){ //Color the date if its less than 24h away
+					document.getElementById("restmuell").style.backgroundColor = "#f00";
+				}
+				else{
+					document.getElementById("restmuell").style.backgroundColor = "#020";
+				}
+			}
+		}
+	}
+	sackRequest.send();
+}
+
 document.onreadystatechange = function() {
 	var state = document.readyState;
 	if(state == 'complete') {
@@ -145,6 +234,9 @@ document.onreadystatechange = function() {
 		requestHumidityInformation();
 		requestBTCInformation();
 		requestKeyInformation();
+		requestGelberSack();
+		requestPapiermuell();
+		requestRestmuell();
 
 		setInterval(function(){
 			requestMPDInformation();
@@ -153,6 +245,9 @@ document.onreadystatechange = function() {
 			requestHumidityInformation();
 			requestBTCInformation();
 			requestKeyInformation();
+			requestGelberSack();
+			requestPapiermuell();
+			requestRestmuell();
 		}, 10000);
 	}
 }
