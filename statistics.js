@@ -12,7 +12,13 @@ function requestMPDInformation(){
 				document.getElementById("mpd").innerHTML= "MPD disabled"
 			}
 			else{
-				document.getElementById("mpd").innerHTML=response.artist + " - " + response.title;
+				if(!response.title){
+					document.getElementById("mpd").innerHTML= response.file;	
+				}
+				else{
+					document.getElementById("mpd").innerHTML=response.title;
+				}	
+				
 			}
 		}
 	}
@@ -299,8 +305,6 @@ document.onreadystatechange = function() {
 		requestPeopleInformation();
 		requestMPDInformation();
 		requestPowerInformation();
-		requestTempInformation();
-		requestHumidityInformation();
 		requestKeyInformation();
 		requestGelberSack();
 		requestPapierMuell();
