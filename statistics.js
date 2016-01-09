@@ -301,14 +301,13 @@ document.onreadystatechange = function() {
 		requestPowerInformation();
 		requestTempInformation();
 		requestHumidityInformation();
-		requestBTCInformation();
 		requestKeyInformation();
 		requestGelberSack();
 		requestPapierMuell();
 		requestRestMuell();
 		requestHackerspaceInformation();
         requestIssues();
-          requestFeinstaub();
+		requestFeinstaub();
 
 		setInterval(function(){
 			requestPeopleInformation();
@@ -316,9 +315,8 @@ document.onreadystatechange = function() {
 			requestPowerInformation();
 			requestTempInformation();
 			requestHumidityInformation();
-			requestBTCInformation();
 			requestKeyInformation();
-                        requestFeinstaub();
+            requestFeinstaub();
 		}, 10000);
 	}
 }
