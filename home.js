@@ -108,7 +108,7 @@ function requestBTCInformation(){
 		if(btcRequest.readyState==4 && btcRequest.status==200){
 			response = JSON.parse(btcRequest.responseText);
 			console.log(response);
-			document.getElementById("btc").innerHTML=response.btc_usd.avg + "$";
+			document.getElementById("btc").innerHTML=response.btc_usd.avg.substring(0, 5) + "$";
 		}
 	}
 
