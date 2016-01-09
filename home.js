@@ -1,5 +1,4 @@
 function toggleMPD(){
-	console.log("asd");
 	mpdRequest = new XMLHttpRequest();
 	mpdRequest.open("GET", "http://shack.shack:5000/mpd/lounge/toggle", true);
 	mpdRequest.setRequestHeader("Content-type","application/json");
@@ -8,7 +7,6 @@ function toggleMPD(){
 		document.getElementById("MPDbutton").src = "./images_home/logo_mpd_start.png";
 	}
 	else{
-		console.log("asdsadasd")
 		document.getElementById("MPDbutton").src = "./images_home/logo_mpd_stop.png";
 	}
 }
@@ -126,6 +124,12 @@ function requestKeyInformation(){
 			response = JSON.parse(keyRequest.responseText);
 			console.log(response);
 			document.getElementById("keyholder").innerHTML="Key: " + response.keyholder;
+			if(response.status == "closed"){
+				document.getElementById("keyholder").style.backgroundColor = "#f00";
+			}
+			else{
+				document.getElementById("keyholder").style.backgroundColor = "#002";
+			}
 		}
 	}
 
