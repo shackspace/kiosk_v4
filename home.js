@@ -46,7 +46,7 @@ function requestMPDInformation(){
 		if(mpdRequest.readyState==4 && mpdRequest.status==200){
 			response = JSON.parse(mpdRequest.responseText);
 			console.log(response);
-			if(response.error){
+			if(!response.file){
 				document.getElementById("mpd").innerHTML= "MPD disabled"
 			}
 			else{
