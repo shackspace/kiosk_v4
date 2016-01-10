@@ -25,7 +25,9 @@ function requestMPDInformation(){
 
 	mpdRequest.send();
 }
-
+function requestGeigerInformation(){
+	document.getElementById("radiation-img").src="http://heidi.shack:8080/render/?width=480&height=240&_salt=1452434175.088&lineMode=connected&from=-24hours&yMax=&bgcolor=000000&fgcolor=FFFFFF&fontBold=true&fontSize=12&xFormat=%25H%3A%25M&target=alias(lineWidth(movingAverage(sensors.radiation.1%2C100)%2C3)%2C%22Average%20Rad%22)&target=alias(sensors.radiation.1%2C%22Current%20Rad%22)&randomCounter="+new Date().getTime();
+}
 function requestPowerInformation(){
 	var powerRequest = null;
 	powerRequest = new XMLHttpRequest();
@@ -308,6 +310,7 @@ document.onreadystatechange = function() {
 		requestKeyInformation();
 		requestGelberSack();
 		requestPapierMuell();
+		requestGeigerInformation();
 		requestRestMuell();
 		requestHackerspaceInformation();
         requestIssues();
@@ -317,6 +320,7 @@ document.onreadystatechange = function() {
 			requestPeopleInformation();
 			requestMPDInformation();
 			requestPowerInformation();
+			requestGeigerInformation();
 			requestTempInformation();
 			requestHumidityInformation();
 			requestKeyInformation();
