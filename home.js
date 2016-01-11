@@ -1,3 +1,5 @@
+var alternator = 0;
+
 function toggleMPD(){
 	mpdRequest = new XMLHttpRequest();
 	mpdRequest.open("GET", "http://shack.shack:5000/mpd/lounge/toggle", true);
@@ -88,44 +90,6 @@ function requestPowerInformation(){
 	powerRequest.send();
 }
 
-function requestTempInformation(){
-	var tempRequest = null;
-	tempRequest = new XMLHttpRequest();
-	tempRequest.open("GET", "http://heidi:8888/api/env/temperature", true);
-	tempRequest.setRequestHeader("Content-type","application/json");
-
-	tempRequest.onreadystatechange=function(){
-		if(tempRequest.readyState==4 && tempRequest.status==200){
-			response = JSON.parse(tempRequest.responseText);
-			console.log(response);
-			if(response[0] != "No Data"){
-				document.getElementById("temp").innerHTML=response[0] + " &degC";
-			}
-		}
-	}
-
-	tempRequest.send();
-}
-
-function requestHumidityInformation(){
-	var humidityRequest = null;
-	humidityRequest = new XMLHttpRequest();
-	humidityRequest.open("GET", "http://heidi:8888/api/env/humidity", true);
-	humidityRequest.setRequestHeader("Content-type","application/json");
-
-	humidityRequest.onreadystatechange=function(){
-		if(humidityRequest.readyState==4 && humidityRequest.status==200){
-			response = JSON.parse(humidityRequest.responseText);
-			console.log(response);
-			if(response[0] != "No Data"){
-				document.getElementById("humidity").innerHTML=response[0] + "%";
-			}
-		}
-	}
-
-	humidityRequest.send();
-}
-
 function requestBTCInformation(){
 	var btcRequest = null;
 	btcRequest = new XMLHttpRequest();
@@ -177,8 +141,6 @@ function requestGelberSack(){
 			if ( isNaN( sackdate.getTime() ) ) {
 				document.getElementById("gelbersack").innerHTML= "kein Termin vorhanden";
 			} else {
-				console.log(sackdate.getTime())
-				console.log(Date.now())
 				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 				document.getElementById("gelbersack").innerHTML= "Gelber Sack: " + sackdate.toLocaleDateString('de-DE', options);
 				if(sackdate.getTime() < Date.now()+60*60*24*1000){ //Color the date if its less than 24h away
@@ -205,8 +167,6 @@ function requestPapiermuell(){
 			if ( isNaN( sackdate.getTime() ) ) {
 				document.getElementById("papiermuell").innerHTML= "kein Termin vorhanden";
 			} else {
-				console.log(sackdate.getTime())
-				console.log(Date.now())
 				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 				document.getElementById("papiermuell").innerHTML= "Papiermuell: " + sackdate.toLocaleDateString('de-DE', options);
 				if(sackdate.getTime() < Date.now()+60*60*24*1000){ //Color the date if its less than 24h away
@@ -249,16 +209,31 @@ function requestRestmuell(){
 }
 
 function requestTemp(){
+	console.log("log")
 	var tempRequest = new XMLHttpRequest();
 	tempRequest.open("GET", "http://smarthome.shack", true);
 	tempRequest.setRequestHeader("Content-type","application/json");
 
 	tempRequest.onreadystatechange=function(){
 		if(tempRequest.readyState==4 && tempRequest.status==200){
-			console.text(tempRequest.responseText)
+			rt = tempRequest.responseText
+			pos = rt.search("Humitidy : <b>")
+			envstring = rt.substring(pos+14, pos+23).trim()
+			console.log(envstring)
+			document.getElementById("power").innerHTML=envstring
 		}
 	}
 	tempRequest.send();
+}
+
+function switchPowerBarDisplay(){
+	if(alternator%2 == 0){ //Alternate between Power and Temperatur/Humid
+		requestPowerInformation();
+	}
+	else{
+		requestTemp();
+	}
+	alternator++;
 }
 
 document.onreadystatechange = function() {
@@ -266,21 +241,23 @@ document.onreadystatechange = function() {
 	if(state == 'complete') {
 		requestMPDInformation();
 		requestPowerInformation();
-		requestTempInformation();
-		requestHumidityInformation();
 		requestBTCInformation();
 		requestKeyInformation();
 		requestGelberSack();
 		requestPapiermuell();
 		requestRestmuell();
 		updateMPDButton();
-		requestTemp();
 
 		setInterval(function(){
+			alternator++; //Increment to allow for changing displays
+			if(alternator%2 == 0){ //Alternate between Power and Temperatur/Humid
+				requestPowerInformation();
+			}
+			else{
+				requestTemp();
+			}
+
 			requestMPDInformation();
-			requestPowerInformation();
-			requestTempInformation();
-			requestHumidityInformation();
 			requestBTCInformation();
 			requestKeyInformation();
 			requestGelberSack();
