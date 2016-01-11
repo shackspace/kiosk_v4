@@ -234,8 +234,6 @@ function requestRestmuell(){
 			if ( isNaN( sackdate.getTime() ) ) {
 				document.getElementById("restmuell").innerHTML= "kein Termin vorhanden";
 			} else {
-				console.log(sackdate.getTime())
-				console.log(Date.now())
 				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 				document.getElementById("restmuell").innerHTML= "Restmuell: " + sackdate.toLocaleDateString('de-DE', options);
 				if(sackdate.getTime() < Date.now()+60*60*24*1000){ //Color the date if its less than 24h away
@@ -248,6 +246,19 @@ function requestRestmuell(){
 		}
 	}
 	sackRequest.send();
+}
+
+function requestTemp(){
+	var tempRequest = new XMLHttpRequest();
+	tempRequest.open("GET", "http://smarthome.shack", true);
+	tempRequest.setRequestHeader("Content-type","application/json");
+
+	tempRequest.onreadystatechange=function(){
+		if(tempRequest.readyState==4 && tempRequest.status==200){
+			console.text(tempRequest.responseText)
+		}
+	}
+	tempRequest.send();
 }
 
 document.onreadystatechange = function() {
@@ -263,6 +274,7 @@ document.onreadystatechange = function() {
 		requestPapiermuell();
 		requestRestmuell();
 		updateMPDButton();
+		requestTemp();
 
 		setInterval(function(){
 			requestMPDInformation();
