@@ -242,7 +242,7 @@ function alarm(){
 		cooldown++;
 	}
 	else{
-		cooldown = 0;
+		cooldown = -100; //Prevent double playing
 		new Audio('./images_home/alarm.mp3').play();
 	}
 }
