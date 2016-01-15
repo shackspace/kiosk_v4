@@ -300,11 +300,10 @@ function update_feinstaub(foo, inner_id){
 var cleaning = false;
 function startClean(value){
 	console.log(value)
-	if(value > 90 && cleaning==false){
+	if(value > 70 && cleaning==false){
 		cleaning = true;
 		//Play sound
 		new Audio('./cleanthis.mp3').play();
-		
 		
 		//Enable all the lights
 		for (light of ["1", "2", "3", "4", "5", "6", "7", "8"]){
