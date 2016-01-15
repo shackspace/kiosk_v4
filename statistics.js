@@ -305,13 +305,23 @@ function startClean(value){
 		//Play sound
 		new Audio('./cleanthis.mp3').play();
 		
-		//Enable all the lights
+		//Disable all the lights
 		for (light of ["1", "2", "3", "4", "5", "6", "7", "8"]){
 			var lightRequest = new XMLHttpRequest();
 			lightRequest.open("PUT", "http://openhab.shack/lounge/"+light, true);
 			lightRequest.setRequestHeader("Content-type","application/json");
-			lightRequest.send(JSON.stringify({"state": "on"}));
+			lightRequest.send(JSON.stringify({"state": "off"}));
 		}
+		
+		//Enable all the lights after two seconds
+		setTimeout(function(){
+			for (light of ["1", "2", "3", "4", "5", "6", "7", "8"]){
+				var lightRequest = new XMLHttpRequest();
+				lightRequest.open("PUT", "http://openhab.shack/lounge/"+light, true);
+				lightRequest.setRequestHeader("Content-type","application/json");
+				lightRequest.send(JSON.stringify({"state": "on"}));
+			}
+		}, 2000);
 		
 	}
 }
