@@ -297,6 +297,26 @@ function update_feinstaub(foo, inner_id){
   document.getElementById(inner_id).innerHTML = feinstaub_html;
 }
 
+var cleaning = false;
+function startClean(value){
+	console.log(value)
+	if(value > 90 && cleaning==false){
+		cleaning = true;
+		//Play sound
+		new Audio('./cleanthis.mp3').play();
+		
+		
+		//Enable all the lights
+		for (light of ["1", "2", "3", "4", "5", "6", "7", "8"]){
+			var lightRequest = new XMLHttpRequest();
+			lightRequest.open("PUT", "http://openhab.shack/lounge/"+light, true);
+			lightRequest.setRequestHeader("Content-type","application/json");
+			lightRequest.send(JSON.stringify({"state": "on"}));
+		}
+		
+	}
+}
+
 
 var spacesOpen = 0;
 var spacesTotal = 0;
