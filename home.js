@@ -1,4 +1,5 @@
 var alternator = 0;
+var cooldown = 0;
 
 function toggleMPD(){
 	mpdRequest = new XMLHttpRequest();
@@ -236,6 +237,16 @@ function switchPowerBarDisplay(){
 	alternator++;
 }
 
+function alarm(){
+	if(cooldown < 3){
+		cooldown++;
+	}
+	else{
+		cooldown = 0;
+		new Audio('./images_home/alarm.mp3').play();
+	}
+}
+
 document.onreadystatechange = function() {
 	var state = document.readyState;
 	if(state == 'complete') {
@@ -264,6 +275,7 @@ document.onreadystatechange = function() {
 			requestPapiermuell();
 			requestRestmuell();
 			updateMPDButton();
+			cooldown = 0;
 		}, 10000);
 	}
 }
