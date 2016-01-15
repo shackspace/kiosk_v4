@@ -86,3 +86,17 @@ img{
   color: #bbf;
   font-size: 25px;
 }
+
+
+input[type=range] {
+    /*removes default webkit styles*/
+    -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 30px;
+    width: 70px;
+    background: red;
+}r
