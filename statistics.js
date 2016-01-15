@@ -316,7 +316,6 @@ function startClean(value){
 	}
 }
 
-
 var spacesOpen = 0;
 var spacesTotal = 0;
 
