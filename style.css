@@ -88,6 +88,10 @@ img{
   font-size: 25px;
 }
 
+.saybutton{
+	font-size: 45px;
+}
+
 
 input[type=range] {
     /*removes default webkit styles*/
