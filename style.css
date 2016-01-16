@@ -103,5 +103,5 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 input[type=range]::-webkit-slider-runnable-track {
-	background: #037;
+	background: #222;
 }
