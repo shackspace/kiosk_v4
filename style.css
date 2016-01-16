@@ -92,7 +92,6 @@ img{
 	font-size: 50px;
 }
 
-
 input[type=range] {
     /*removes default webkit styles*/
     -webkit-appearance: none;
