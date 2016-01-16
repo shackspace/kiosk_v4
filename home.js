@@ -210,7 +210,6 @@ function requestRestmuell(){
 }
 
 function requestTemp(){
-	console.log("log")
 	var tempRequest = new XMLHttpRequest();
 	tempRequest.open("GET", "http://smarthome.shack", true);
 	tempRequest.setRequestHeader("Content-type","application/json");
@@ -227,14 +226,29 @@ function requestTemp(){
 	tempRequest.send();
 }
 
-function switchPowerBarDisplay(){
-	if(alternator%2 == 0){ //Alternate between Power and Temperatur/Humid
-		requestPowerInformation();
+function requestNetwork(){
+	var tokenRequest =  new XMLHttpRequest();
+	tokenRequest.open("GET", "./tokens.txt", true);
+	tokenRequest.onreadystatechange=function(){
+		if(tokenRequest.readyState==4 && tokenRequest.status==200){
+			console.log(tokenRequest.responseText);
+			var token = JSON.parse(tokenRequest.responseText).librenms;
+			var networkRequest = new XMLHttpRequest();
+			networkRequest.open("GET", "http://librenms.shack/api/v0/devices/13/ports/em0", true);
+			networkRequest.setRequestHeader("X-Auth-Token", token);
+			networkRequest.onreadystatechange=function(){
+				if(networkRequest.readyState==4 && networkRequest.status==200){
+					var nd = JSON.parse(networkRequest.responseText);
+					var downstream = (nd.port.ifInOctets_rate*8/1024/1024);
+					var upstream = (nd.port.ifOutOctets_rate*8/1024/1024);
+					document.getElementById("mpd").style.fontSize = "38px"; //Reset the font size
+					document.getElementById("mpd").innerHTML = "&#x25BC; " + downstream.toString().substring(0,4) + " Mbit/s (" + (downstream/2).toString().substring(0, 4) + "%) - &#x25B2; " + upstream.toString().substring(0,4) + " Mbit/s (" + (upstream/0.1).toString().substring(0, 4) + "%)";
+				}
+			}
+			networkRequest.send()
+		}
 	}
-	else{
-		requestTemp();
-	}
-	alternator++;
+	tokenRequest.send()
 }
 
 function alarm(){
@@ -261,14 +275,15 @@ document.onreadystatechange = function() {
 
 		setInterval(function(){
 			alternator++; //Increment to allow for changing displays
-			if(alternator%2 == 0){ //Alternate between Power and Temperatur/Humid
+			if(alternator%2 == 0){ //Alternate the displayed values
 				requestPowerInformation();
+				requestMPDInformation();
 			}
 			else{
 				requestTemp();
+				requestNetwork();
 			}
 
-			requestMPDInformation();
 			requestBTCInformation();
 			requestKeyInformation();
 			requestGelberSack();
