@@ -321,7 +321,7 @@ function startClean(value){
 				lightRequest.setRequestHeader("Content-type","application/json");
 				lightRequest.send(JSON.stringify({"state": "on"}));
 			}
-		}, 2000);
+		}, 1000);
 		
 	}
 }
@@ -340,7 +340,6 @@ document.onreadystatechange = function() {
 		requestPapierMuell();
 		requestGeigerInformation();
 		requestRestMuell();
-		requestHackerspaceInformation();
         requestIssues();
 		requestFeinstaub();
 
