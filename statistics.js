@@ -45,44 +45,6 @@ function requestPowerInformation(){
 	powerRequest.send();
 }
 
-function requestTempInformation(){
-	var tempRequest = null;
-	tempRequest = new XMLHttpRequest();
-	tempRequest.open("GET", "http://heidi:8888/api/env/temperature", true);
-	tempRequest.setRequestHeader("Content-type","application/json");
-
-	tempRequest.onreadystatechange=function(){
-		if(tempRequest.readyState==4 && tempRequest.status==200){
-			response = JSON.parse(tempRequest.responseText);
-			console.log(response);
-			if(response[0] != "No Data"){
-				document.getElementById("temp").innerHTML=response[0] + " &degC";
-			}
-		}
-	}
-
-	tempRequest.send();
-}
-
-function requestHumidityInformation(){
-	var humidityRequest = null;
-	humidityRequest = new XMLHttpRequest();
-	humidityRequest.open("GET", "http://heidi:8888/api/env/humidity", true);
-	humidityRequest.setRequestHeader("Content-type","application/json");
-
-	humidityRequest.onreadystatechange=function(){
-		if(humidityRequest.readyState==4 && humidityRequest.status==200){
-			response = JSON.parse(humidityRequest.responseText);
-			console.log(response);
-			if(response[0] != "No Data"){
-				document.getElementById("humidity").innerHTML=response[0] + "%";
-			}
-		}
-	}
-
-	humidityRequest.send();
-}
-
 function requestBTCInformation(){
 	var btcRequest = null;
 	btcRequest = new XMLHttpRequest();
@@ -303,6 +265,7 @@ function startClean(value){
 	if(value > 70 && cleaning==false){
 		cleaning = true;
 		//Play sound
+		gobbelz("Cleaning rage activated")
 		new Audio('./cleanthis.mp3').play();
 		
 		//Disable all the lights
@@ -326,8 +289,12 @@ function startClean(value){
 	}
 }
 
-var spacesOpen = 0;
-var spacesTotal = 0;
+function gobbelz(text){
+	var lightRequest = new XMLHttpRequest();
+	lightRequest.open("POST", "http://gobbelz.shack/say/", true);
+	lightRequest.setRequestHeader("Content-type","application/json");
+	lightRequest.send(JSON.stringify({"text": text}));
+}
 
 document.onreadystatechange = function() {
 	var state = document.readyState;
@@ -348,8 +315,6 @@ document.onreadystatechange = function() {
 			requestMPDInformation();
 			requestPowerInformation();
 			requestGeigerInformation();
-			requestTempInformation();
-			requestHumidityInformation();
 			requestKeyInformation();
             requestFeinstaub();
 		}, 10000);
