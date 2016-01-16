@@ -17,7 +17,7 @@ function say(event){
 		else{
 			countdown.value = countdown.value - 5
 		}
-	}, 100);
+	}, 99);
 
 	sayTimer = setTimeout(function(){
 		clearInterval(progressInterval); //Remove the countdown interval
