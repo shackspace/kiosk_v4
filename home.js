@@ -246,7 +246,7 @@ function requestNetwork(){
 					if(downstream > 35 || upstream > 6){
 						document.getElementById("mpd").style.backgroundColor = "#f00"; //Color the background red if high load
 					}
-					document.getElementById("mpd").innerHTML = "&#x25BC; " + downstream.toString().substring(0,4) + " Mbit/s (" + (downstream/2).toString().substring(0, 4) + "%) - &#x25B2; " + upstream.toString().substring(0,4) + " Mbit/s (" + (upstream/0.1).toString().substring(0, 4) + "%)";
+					document.getElementById("mpd").innerHTML = "&#x25BC; " + downstream.toString().substring(0,4) + " Mbit/s (" + (downstream*2).toString().substring(0, 4) + "%) - &#x25B2; " + upstream.toString().substring(0,4) + " Mbit/s (" + (upstream/0.1).toString().substring(0, 4) + "%)";
 				}
 			}
 			networkRequest.send()
