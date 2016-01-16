@@ -100,4 +100,8 @@ input[type=range]::-webkit-slider-thumb {
     height: 50px;
     width: 70px;
     background: #00baff;
-}r
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+	background: #037;
+}
