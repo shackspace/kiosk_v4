@@ -49,6 +49,7 @@ function requestMPDInformation(){
 		if(mpdRequest.readyState==4 && mpdRequest.status==200){
 			response = JSON.parse(mpdRequest.responseText);
 			console.log(response);
+			document.getElementById("mpd").style.backgroundColor = "#440";
 			if(!response.file){
 				document.getElementById("mpd").innerHTML= "MPD disabled"
 			}
@@ -242,6 +243,9 @@ function requestNetwork(){
 					var downstream = (nd.port.ifInOctets_rate*8/1024/1024);
 					var upstream = (nd.port.ifOutOctets_rate*8/1024/1024);
 					document.getElementById("mpd").style.fontSize = "38px"; //Reset the font size
+					if(downstream > 35 || upstream > 6){
+						document.getElementById("mpd").style.backgroundColor = "#f00"; //Color the background red if high load
+					}
 					document.getElementById("mpd").innerHTML = "&#x25BC; " + downstream.toString().substring(0,4) + " Mbit/s (" + (downstream/2).toString().substring(0, 4) + "%) - &#x25B2; " + upstream.toString().substring(0,4) + " Mbit/s (" + (upstream/0.1).toString().substring(0, 4) + "%)";
 				}
 			}
