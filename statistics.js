@@ -273,19 +273,8 @@ function startClean(value){
 			var lightRequest = new XMLHttpRequest();
 			lightRequest.open("PUT", "http://openhab.shack/lounge/"+light, true);
 			lightRequest.setRequestHeader("Content-type","application/json");
-			lightRequest.send(JSON.stringify({"state": "off"}));
+			lightRequest.send(JSON.stringify({"state": "on"}));
 		}
-		
-		//Enable all the lights after two seconds
-		setTimeout(function(){
-			for (light of ["1", "2", "3", "4", "5", "6", "7", "8"]){
-				var lightRequest = new XMLHttpRequest();
-				lightRequest.open("PUT", "http://openhab.shack/lounge/"+light, true);
-				lightRequest.setRequestHeader("Content-type","application/json");
-				lightRequest.send(JSON.stringify({"state": "on"}));
-			}
-		}, 1000);
-		
 	}
 }
 
