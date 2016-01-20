@@ -268,7 +268,7 @@ function startClean(value){
 		gobbelz("Cleaning rage activated")
 		new Audio('./cleanthis.mp3').play();
 		
-		//Disable all the lights
+		//Enable all the lights
 		for (light of ["1", "2", "3", "4", "5", "6", "7", "8"]){
 			var lightRequest = new XMLHttpRequest();
 			lightRequest.open("PUT", "http://openhab.shack/lounge/"+light, true);
