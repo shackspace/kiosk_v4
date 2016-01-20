@@ -10,7 +10,7 @@ function requestCalender(){
 			var events = calender.getElementsByClassName("date-section");
 			console.log(events)
 			var eventtable = document.getElementById("eventtable");
-			for(var i = 0; i<5; i++){
+			for(var i = 0; i<6; i++){
 				var lines = events[i].innerText.split("\n");
 				console.log(lines);
 
@@ -44,7 +44,8 @@ function requestCalender(){
 				for(eventline of eventlines){
 					var tr = document.createElement("tr");
 					var td = document.createElement("td");
-					td.appendChild(document.createTextNode("> " + eventline));
+					td.style.color = "#099";
+					td.appendChild(document.createTextNode(eventline));
 					tr.appendChild(td);
 					eventtable.appendChild(tr)
 				}						
