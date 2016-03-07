@@ -5,7 +5,7 @@ function createGraph(){
 		"Wasser": 0,
 		"Mate Cola": 0,
 		"Apfelschorle": 0,
-		"ACE": 0,
+		"Apfel-Kirsch": 0,
 		"Mate 1": 0,
 		"Mate 2": 0
 	};
@@ -13,10 +13,10 @@ function createGraph(){
 	for(var requests = 1; requests <= 6; requests++){
 		mateRequest = new XMLHttpRequest();
 		if(requests <= 4){
-			mateRequest.open("GET", "https://ora2.tutschonwieder.net:8443/apex/tensai-prod/v1/get/fuellstand/1/" + requests);
+			mateRequest.open("GET", "https://ora3.tutschonwieder.net/ords/lick_prod/v1/get/fuellstand/1/" + requests);
 		}
 		else{
-			mateRequest.open("GET", "https://ora2.tutschonwieder.net:8443/apex/tensai-prod/v1/get/fuellstand/1/" + (requests+21));
+			mateRequest.open("GET", "https://ora3.tutschonwieder.net/ords/lick_prod/v1/get/fuellstand/1/" + (requests+21));
 		}
 		mateRequest.setRequestHeader("Content-type","application/json");
 
