@@ -227,13 +227,13 @@ function requestIssues(){
 
 function requestFeinstaub(){
   feinstaubRequest_sued = new XMLHttpRequest();
-  feinstaubRequest_sued.open("GET", "http://api.dusti.xyz/v1/data/?sensor=61&page_size=1", true);
+  feinstaubRequest_sued.open("GET", "http://api.luftdaten.info/v1/data/?sensor=61&page_size=1", true);
   feinstaubRequest_sued.setRequestHeader("Content-type","application/json");
   feinstaubRequest_sued.onreadystatechange=function(){update_feinstaub(this, "feinstaub-sued")};
   feinstaubRequest_sued.send();
 
   feinstaubRequest_nord = new XMLHttpRequest();
-  feinstaubRequest_nord.open("GET", "http://api.dusti.xyz/v1/data/?sensor=63&page_size=1", true);
+  feinstaubRequest_nord.open("GET", "http://api.luftdaten.info/v1/data/?sensor=63&page_size=1", true);
   feinstaubRequest_nord.setRequestHeader("Content-type","application/json");
   feinstaubRequest_nord.onreadystatechange=function(){update_feinstaub(this, "feinstaub-nord")};
   feinstaubRequest_nord.send();
