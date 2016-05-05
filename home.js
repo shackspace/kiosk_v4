@@ -235,7 +235,7 @@ function requestNetwork(){
 			console.log(tokenRequest.responseText);
 			var token = JSON.parse(tokenRequest.responseText).librenms;
 			var networkRequest = new XMLHttpRequest();
-			networkRequest.open("GET", "http://librenms.shack/api/v0/devices/13/ports/em0", true);
+			networkRequest.open("GET", "http://librenms.shack/api/v0/devices/1/ports/Gi2%2F1", true);
 			networkRequest.setRequestHeader("X-Auth-Token", token);
 			networkRequest.onreadystatechange=function(){
 				if(networkRequest.readyState==4 && networkRequest.status==200){
