@@ -29,6 +29,11 @@ function createGraph(){
 		//Create Chart
 		console.log("Created");
 		mateChart = new Chart(ctx).Bar(data, options);
+		
+		for(barNr in mateChart.datasets[0].bars){
+			mateChart.datasets[0].bars[barNr].fillColor = "#"+((1<<24)*Math.random()|0).toString(16);
+		}
+		mateChart.update()
 
 	}
 	r.send();
