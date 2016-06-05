@@ -20,7 +20,6 @@ function createGraph(){
 
 		var options = {
 			scaleBeginAtZero : true,
-
 			scaleFontSize: 24,
 			scaleFontColor: "#bbb",
 			responsive: false,
