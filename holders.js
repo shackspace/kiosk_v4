@@ -9,11 +9,8 @@ function createGraph(){
 		for(var key in response) {
 			durations.push(parseFloat(response[key]))
 		}
-		console.log(durations)
  		durations.sort(function(a,b) { return a - b;});
  		durations.reverse();
-		console.log(durations)
-		console.log(response)
 		
 		durationHours = []
 		for (var duration of durations){
@@ -26,8 +23,6 @@ function createGraph(){
 			durationHours.push(duration/3600)
 			
 		}
-		
-		console.log(holders)
 		
 		var data = {
 			labels: holders,
@@ -49,7 +44,10 @@ function createGraph(){
 		mateChart = new Chart(ctx).Bar(data, options);
 		
 		for(barNr in mateChart.datasets[0].bars){
-			mateChart.datasets[0].bars[barNr].fillColor = "#"+((1<<24)*Math.random()|0).toString(16);
+			console.log(barNr)
+			n = Math.floor(256/(holders.length))
+			mateChart.datasets[0].bars[barNr].fillColor = "hsl(" + barNr*n + ", 100%, 50%)"
+			//mateChart.datasets[0].bars[barNr].fillColor = "#"+((1<<24)*Math.random()|0).toString(16);
 		}
 		mateChart.update()
 
