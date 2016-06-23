@@ -7,14 +7,32 @@ function createGraph(){
 		holders = [];
 		durations = [];
 		for(var key in response) {
-			holders.push(key)
-			durations.push(response[key]/3600)
+			durations.push(parseFloat(response[key]))
 		}
+		console.log(durations)
+ 		durations.sort(function(a,b) { return a - b;});
+ 		durations.reverse();
+		console.log(durations)
+		console.log(response)
+		
+		durationHours = []
+		for (var duration of durations){
+			console.log(durations)
+			for (var keyholder in response){
+				if (response[keyholder] == duration){
+					holders.push(keyholder);
+				}
+			}
+			durationHours.push(duration/3600)
+			
+		}
+		
+		console.log(holders)
 		
 		var data = {
 			labels: holders,
 			datasets:[{
-				data: durations
+				data: durationHours
 			}]
 		};
 
