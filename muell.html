@@ -1,0 +1,29 @@
+<html>
+<head>
+	<link rel="stylesheet" href="style.css">
+	<title>shack kiosk interface</title>
+</head>
+<body bgcolor="#000">
+	<a href="index.html">
+		<img id="homeButton" src="./images_common/logo_home.png" style="position:absolute; top: 20px; left:20px; width:150px;"></img>
+	</a>
+  <div style="margin-left: 200px; font-size: 30px; color: #6f6; margin-top: 60px">
+    <p id="restmuell" style="margin: 6px; font-size:30px; text-align:left;">Loading Papierm&uuml;ll...</p>
+    <p id="papiermuell" style="margin: 6px; font-size:30px; text-align:left;">Loading Restm&uuml;ll...</p>
+    <p id="gelber_sack" style="margin: 6px; font-size:30px; text-align:left;">Loading Gelber Sack...</p>
+    <div>
+    <br/>
+    <div id="muell-head" style="margin: 6px;"><span style="font-size:40px;visibility:hidden;">M&uuml;ll wurde herunter gebracht</span><br>
+      <!--<p><form id="muell-users">
+        </form></p>-->
+    </div>
+    <img id="gelber_sack-img" src="./images_muell/gelber-sack.png" style="width:150px;visibility:hidden;"></img>
+    <img id="restmuell-img" src="./images_muell/restmuell.png" style="width:150px;visibility:hidden;"></img>
+    <img id="papiermuell-img" src="./images_muell/papiermuell.png" style="width:150px;visibility:hidden;"></img>
+    </div>
+  </div>
+	<script src="./home.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <script src="./muell.js"></script>
+</body>
+</html>
