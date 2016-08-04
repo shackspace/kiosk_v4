@@ -132,82 +132,44 @@ function requestKeyInformation(){
 }
 
 function requestGelberSack(){
-	var sackRequest = new XMLHttpRequest();
-	sackRequest.open("GET", "http://openhab.shack/muellshack/gelber_sack", true);
-	sackRequest.setRequestHeader("Content-type","application/json");
-
-	sackRequest.onreadystatechange=function(){
-		if(sackRequest.readyState==4 && sackRequest.status==200){
-			response = JSON.parse(sackRequest.responseText);
-			var sackdate = new Date(response.gelber_sack);
-			if ( isNaN( sackdate.getTime() ) ) {
-				document.getElementById("gelbersack").innerHTML= "kein Termin vorhanden";
-			} else {
-				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-				document.getElementById("gelbersack").innerHTML= "Gelber Sack: " + sackdate.toLocaleDateString('de-DE', options);
-				if(sackdate.getTime() < Date.now()+60*60*24*1000){ //Color the date if its less than 24h away
-					document.getElementById("gelbersack").style.backgroundColor = "#f00";
-				}
-				else{
-					document.getElementById("gelbersack").style.backgroundColor = "#020";
-				}
-			}
-		}
-	}
-	sackRequest.send();
+  requestMuell("gelber_sack","Gelber Sack")
 }
 
 function requestPapiermuell(){
-	var sackRequest = new XMLHttpRequest();
-	sackRequest.open("GET", "http://openhab.shack/muellshack/papiermuell", true);
-	sackRequest.setRequestHeader("Content-type","application/json");
-
-	sackRequest.onreadystatechange=function(){
-		if(sackRequest.readyState==4 && sackRequest.status==200){
-			response = JSON.parse(sackRequest.responseText);
-			var sackdate = new Date(response.papiermuell);
-			if ( isNaN( sackdate.getTime() ) ) {
-				document.getElementById("papiermuell").innerHTML= "kein Termin vorhanden";
-			} else {
-				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-				document.getElementById("papiermuell").innerHTML= "Papiermuell: " + sackdate.toLocaleDateString('de-DE', options);
-				if(sackdate.getTime() < Date.now()+60*60*24*1000){ //Color the date if its less than 24h away
-					document.getElementById("papiermuell").style.backgroundColor = "#f00";
-				}
-				else{
-					document.getElementById("papiermuell").style.backgroundColor = "#020";
-				}
-			}
-		}
-	}
-	sackRequest.send();
+  requestMuell("papiermuell","Papierm&uuml;ll")
 }
 
 
-function requestRestmuell(){
-	var sackRequest = new XMLHttpRequest();
-	sackRequest.open("GET", "http://openhab.shack/muellshack/restmuell", true);
-	sackRequest.setRequestHeader("Content-type","application/json");
+function requestMuell(muell,fancyname){
+	var Request = new XMLHttpRequest();
+	Request.open("GET", "http://openhab.shack/muellshack/"+muell, true);
+	Request.setRequestHeader("Content-type","application/json");
 
-	sackRequest.onreadystatechange=function(){
-		if(sackRequest.readyState==4 && sackRequest.status==200){
-			response = JSON.parse(sackRequest.responseText);
-			var sackdate = new Date(response.restmuell);
+	Request.onreadystatechange=function(){
+		if(Request.readyState==4 && Request.status==200){
+			response = JSON.parse(Request.responseText);
+			var sackdate = new Date(response[muell]);
 			if ( isNaN( sackdate.getTime() ) ) {
-				document.getElementById("restmuell").innerHTML= "kein Termin vorhanden";
+				document.getElementById(muell).innerHTML= "kein Termin vorhanden";
 			} else {
 				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-				document.getElementById("restmuell").innerHTML= "Restmuell: " + sackdate.toLocaleDateString('de-DE', options);
+				document.getElementById(muell).innerHTML= fancyname+": " + sackdate.toLocaleDateString('de-DE', options);
 				if(sackdate.getTime() < Date.now()+60*60*24*1000){ //Color the date if its less than 24h away
-					document.getElementById("restmuell").style.backgroundColor = "#f00";
+					document.getElementById(muell).style.backgroundColor = "#f00";
+          // also set muell img to visible
+					document.getElementById(muell+"-img").style.visibility = "visible";
+          document.getElementById("muell-head").style.visibility = "visible";
 				}
 				else{
-					document.getElementById("restmuell").style.backgroundColor = "#020";
+					document.getElementById(muell).style.backgroundColor = "#020";
 				}
 			}
 		}
 	}
-	sackRequest.send();
+	Request.send();
+}
+function requestRestmuell(){
+  requestMuell("restmuell","Restm&uuml;ll")
 }
 
 function requestTemp(){
