@@ -11,15 +11,21 @@
     <p id="restmuell" style="margin: 6px; font-size:30px; text-align:left;">Loading Papierm&uuml;ll...</p>
     <p id="papiermuell" style="margin: 6px; font-size:30px; text-align:left;">Loading Restm&uuml;ll...</p>
     <p id="gelber_sack" style="margin: 6px; font-size:30px; text-align:left;">Loading Gelber Sack...</p>
-    <div>
-    <br/>
-    <div id="muell-head" style="margin: 6px;"><span style="font-size:40px;visibility:hidden;">M&uuml;ll wurde herunter gebracht</span><br>
-      <!--<p><form id="muell-users">
-        </form></p>-->
+    <div id="sack-bilder">
+      <img id="gelber_sack-img" src="./images_muell/gelber-sack.png" style="width:350px;visibility:hidden;"></img>
+      <img id="restmuell-img" src="./images_muell/restmuell.png" style="width:350px;visibility:hidden;"></img>
+      <img id="papiermuell-img" src="./images_muell/papiermuell.png" style="width:350px;visibility:hidden;"></img>
     </div>
-    <img id="gelber_sack-img" src="./images_muell/gelber-sack.png" style="width:150px;visibility:hidden;"></img>
-    <img id="restmuell-img" src="./images_muell/restmuell.png" style="width:150px;visibility:hidden;"></img>
-    <img id="papiermuell-img" src="./images_muell/papiermuell.png" style="width:150px;visibility:hidden;"></img>
+    <div id="sack-text">
+      <div id="gelber_sack-text" style="width:350px;visibility:hidden;text-align:center;display:inline-block">Gelbe S&auml;cke unten an die Laterne stellen</div>
+      <div id="restmuell-text"   style="width:350px;visibility:hidden;text-align:center;display:inline-block">Schwarze Tonne aufschliessen</div>
+      <div id="papiermuell-text" style="width:350px;visibility:hidden;text-align:center;display:inline-block">Papierm&uuml;lltonne aufschliessen</div>
+    </div>
+
+    <div id="last-checkpoint" style="visibility:hidden;margin-top:30px">
+      <div style="font-size:35px;vertical-align:middle;color:orange;margin:20px"><b>Achtung!</b><br/>Hast du wirklich alle notwendigen Schritte durchgef&uuml;hrt damit morgen der M&uuml;ll abgeholt werden kann?  </div>
+      <div id="ok-button" style="text-align:center;line-height:80px;font-size:40px;color:white;margin:20px;height:80px;background:green;">Ja, hab alles gemacht</div>
+      <div id="nok-button" style="text-align:center;line-height:80px;vertical-align:middle;font-size:40px;color:black;height:80px;margin:20px;background:yellow;">Wupps, verklickt. Sorry</div>
     </div>
   </div>
 	<script src="./home.js"></script>

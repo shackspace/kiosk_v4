@@ -28,7 +28,9 @@ footer{
   text-align:center;
   height: 100px;
 }
-
+div {
+  font-family: "sans-serif";
+}
 p, span, table{
   font-family: "sans-serif";
   font-weight: bold;

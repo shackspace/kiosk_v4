@@ -155,10 +155,15 @@ function requestMuell(muell,fancyname){
 				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 				document.getElementById(muell).innerHTML= fancyname+": " + sackdate.toLocaleDateString('de-DE', options);
 				if(sackdate.getTime() < Date.now()+60*60*24*1000){ //Color the date if its less than 24h away
-					document.getElementById(muell).style.backgroundColor = "#f00";
+					if (response['main_action_done']){
+						document.getElementById(muell).style.color = "#000";
+						document.getElementById(muell).style.backgroundColor = "#ff0";
+					}else{
+						document.getElementById(muell).style.backgroundColor = "#f00";
+					}
           // also set muell img to visible
 					document.getElementById(muell+"-img").style.visibility = "visible";
-          document.getElementById("muell-head").style.visibility = "visible";
+					document.getElementById(muell+"-text").style.visibility = "visible";
 				}
 				else{
 					document.getElementById(muell).style.backgroundColor = "#020";
