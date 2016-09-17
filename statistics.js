@@ -259,22 +259,12 @@ function update_feinstaub(foo, inner_id){
   document.getElementById(inner_id).innerHTML = feinstaub_html;
 }
 
-var cleaning = false;
-function startClean(value){
+var psi = false;
+function startPsi(value){
 	console.log(value)
-	if(value > 70 && cleaning==false){
-		cleaning = true;
-		//Play sound
-		gobbelz("Cleaning rage activated")
-		new Audio('./cleanthis.mp3').play();
-		
-		//Enable all the lights
-		for (light of ["1", "2", "3", "4", "5", "6", "7", "8"]){
-			var lightRequest = new XMLHttpRequest();
-			lightRequest.open("PUT", "http://openhab.shack/lounge/"+light, true);
-			lightRequest.setRequestHeader("Content-type","application/json");
-			lightRequest.send(JSON.stringify({"state": "on"}));
-		}
+	if(value > 70 && psi==false){
+		psi = true;
+		new Audio('./psi_alarm.mp3').play(); //Play sound
 	}
 }
 
