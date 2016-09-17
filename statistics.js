@@ -264,6 +264,7 @@ function startPsi(value){
 	console.log(value)
 	if(value > 70 && psi==false){
 		psi = true;
+		console.log("Playing PSI sound")
 		new Audio('./psi_alarm.mp3').play(); //Play sound
 	}
 }
