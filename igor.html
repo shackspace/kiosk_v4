@@ -51,6 +51,17 @@
 		<br>
 		<br>
 		<progress id="timeleft" value="100" max="100" style="width: 95%;"></progress>
+		<br><br><br>
+		<table style="color: #00baff;">
+		<tr>
+			<td><span style="font-size:30px">A-Alarm:</span></td>
+			<td><input type="range" name="points" min="0" max="100" style="width: 300px;" value="0" onchange="startAttila(this.value)"><br><span id="attila" style="font-size: 16px">Slide to enable -></span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:30px">PSI Alarm:</span></td>
+			<td><input type="range" name="points" min="0" max="100" style="width: 300px;" value="0" onchange="startPsi(this.value)"><br><span id="psi" style="font-size: 16px">Slide to enable -></span></td>
+		</tr>
+		</table>
 	</div>
 	<script src="./igor.js"></script>
 </body>

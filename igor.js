@@ -36,3 +36,23 @@ function gobbelz(text){
 	lightRequest.setRequestHeader("Content-type","application/json");
 	lightRequest.send(JSON.stringify({"text": text}));
 }
+
+var psi = false;
+function startPsi(value){
+	console.log(value)
+	if(value > 70 && psi==false){
+		psi = true;
+		console.log("Playing PSI sound")
+		new Audio('./psi_alarm.mp3').play(); //Play sound
+	}
+}
+
+var attila = false;
+function startAttila(value){
+	console.log(value)
+	if(value > 70 && attila==false){
+		attila = true;
+		console.log("Playing Attila sound")
+		new Audio('./Attila.mp3').play(); //Play sound
+	}
+}
