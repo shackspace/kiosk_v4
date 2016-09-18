@@ -56,3 +56,16 @@ function startAttila(value){
 		new Audio('./Attila.mp3').play(); //Play sound
 	}
 }
+
+function generateExcuse(){
+	var listRequest = new XMLHttpRequest();
+	listRequest.open("GET", "http://localhost:8080/excuse.lst", true);
+	listRequest.onreadystatechange=function(){
+		if(listRequest.readyState==4 && listRequest.status==200){
+			var excuses = listRequest.responseText.split("\n");
+			var excuse = excuses[Math.floor(Math.random()*excuses.length)];	
+			gobbelz(excuse);
+		}
+	}
+	listRequest.send();
+}
