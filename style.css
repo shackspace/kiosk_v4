@@ -92,6 +92,7 @@ img{
 
 .saybutton{
 	font-size: 50px;
+	width: 70px;
 }
 
 input[type=range] {

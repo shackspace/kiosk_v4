@@ -2,8 +2,9 @@ var sayTimer;
 var progressInterval;
 
 function say(event){
-	s = document.getElementById("sentence") 
-	s.innerHTML = s.innerHTML + " " + event.innerHTML;
+	s = document.getElementById("sentence")
+	if (event.innerHTML != "SPACE"){s.innerHTML = s.innerHTML + event.innerHTML;}
+	else {s.innerHTML = s.innerHTML + " ";}
 	clearTimeout(sayTimer);
 
 	clearInterval(progressInterval)
