@@ -1,4 +1,4 @@
-var alternator = 0;
+var alternator = 1;
 var cooldown = 0;
 
 function toggleMPD(){
@@ -227,8 +227,9 @@ function requestFeinstaub(){
 	feinstaubRequest_sued.open("GET", "http://api.luftdaten.info/v1/data/?sensor=61&page_size=1", true);
 	feinstaubRequest_sued.setRequestHeader("Content-type","application/json");
 	feinstaubRequest_sued.onreadystatechange=function(){
-		if(foo.readyState==4 && foo.status==200){
-			response = JSON.parse(foo.responseText);
+		feinstaub_html = "Feinstaub: ";
+		if(feinstaubRequest_sued.readyState==4 && feinstaubRequest_sued.status==200){
+			response = JSON.parse(feinstaubRequest_sued.responseText);
 			for (var idx in response.results[0].sensordatavalues) {
 				var sdvalue = response.results[0].sensordatavalues[idx];
 				if(sdvalue.value_type == 'P1') {
