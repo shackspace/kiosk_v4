@@ -230,14 +230,15 @@ function requestFeinstaub(){
 		if(foo.readyState==4 && foo.status==200){
 			response = JSON.parse(foo.responseText);
 			for (var idx in response.results[0].sensordatavalues) {
-			var sdvalue = response.results[0].sensordatavalues[idx];
-			if(sdvalue.value_type == 'P1') {
-				console.log(sdvalue.value);
-				feinstaub_html += " P1:" + sdvalue.value;
-			}
-			if(sdvalue.value_type == 'P2') {
-				console.log(sdvalue.value);
-				feinstaub_html += " P2:" + sdvalue.value;
+				var sdvalue = response.results[0].sensordatavalues[idx];
+				if(sdvalue.value_type == 'P1') {
+					console.log(sdvalue.value);
+					feinstaub_html += " P1:" + sdvalue.value;
+				}
+				if(sdvalue.value_type == 'P2') {
+					console.log(sdvalue.value);
+					feinstaub_html += " P2:" + sdvalue.value;
+			  	}
 		  	}
 		}
 		document.getElementById("mpd").innerHTML = feinstaub_html;
