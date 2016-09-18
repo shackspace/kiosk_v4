@@ -3,8 +3,10 @@ var progressInterval;
 
 function say(event){
 	s = document.getElementById("sentence")
-	if (event.innerHTML != "SPACE"){s.innerHTML = s.innerHTML + event.innerHTML;}
-	else {s.innerHTML = s.innerHTML + " ";}
+	if (event.innerHTML == "SPACE"){s.innerHTML = s.innerHTML + " ";}
+	else if(event.innerHTML == "BACKSPACE"){s.innerHTML = s.innerHTML.substring(0, s.innerHTML.length-1);}
+	else {s.innerHTML = s.innerHTML + event.innerHTML;}
+
 	clearTimeout(sayTimer);
 
 	clearInterval(progressInterval)
