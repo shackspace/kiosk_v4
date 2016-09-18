@@ -7,7 +7,10 @@
 	<a href="index.html">
 		<img id="homeButton" src="./images_common/logo_home.png" style="position:absolute; top: 20px; left:20px; width:150px;"></img>
 	</a>
-	<div style="margin-top: 150px; margin-left: 200px; color:#00baff;">
+	<div style="position:absolute; top: 10px; left:180px; width:1000px;">
+		<p id="sentence" style="color: #bbf; font-size: 50px; word-wrap:break-word "></p>
+	</div>
+	<div style="margin-top: 250px; margin-left: 50px; color:#00baff;">
 		<button class="saybutton" onclick="say(this)">Q</button>
 		<button class="saybutton" onclick="say(this)">W</button>
 		<button class="saybutton" onclick="say(this)">E</button>
@@ -47,7 +50,6 @@
 		<br>
 		<br>
 		<progress id="timeleft" value="100" max="100" style="width: 95%;"></progress>
-		<p style="font-size: 30px" id="sentence"></p>
 	</div>
 	<script src="./igor.js"></script>
 </body>
