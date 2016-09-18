@@ -269,6 +269,16 @@ function startPsi(value){
 	}
 }
 
+var attila = false;
+function startAttila(value){
+	console.log(value)
+	if(value > 70 && attila==false){
+		attila = true;
+		console.log("Playing Attila sound")
+		new Audio('./Attila.mp3').play(); //Play sound
+	}
+}
+
 function gobbelz(text){
 	var lightRequest = new XMLHttpRequest();
 	lightRequest.open("POST", "http://gobbelz.shack/say/", true);
