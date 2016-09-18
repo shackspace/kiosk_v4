@@ -222,6 +222,29 @@ function requestNetwork(){
 	tokenRequest.send()
 }
 
+function requestFeinstaub(){
+	feinstaubRequest_sued = new XMLHttpRequest();
+	feinstaubRequest_sued.open("GET", "http://api.luftdaten.info/v1/data/?sensor=61&page_size=1", true);
+	feinstaubRequest_sued.setRequestHeader("Content-type","application/json");
+	feinstaubRequest_sued.onreadystatechange=function(){
+		if(foo.readyState==4 && foo.status==200){
+			response = JSON.parse(foo.responseText);
+			for (var idx in response.results[0].sensordatavalues) {
+			var sdvalue = response.results[0].sensordatavalues[idx];
+			if(sdvalue.value_type == 'P1') {
+				console.log(sdvalue.value);
+				feinstaub_html += " P1:" + sdvalue.value;
+			}
+			if(sdvalue.value_type == 'P2') {
+				console.log(sdvalue.value);
+				feinstaub_html += " P2:" + sdvalue.value;
+		  	}
+		}
+		document.getElementById("mpd").innerHTML = feinstaub_html;
+	};
+	feinstaubRequest_sued.send();
+}
+
 function alarm(){
 	if(cooldown < 3){
 		cooldown++;
@@ -246,14 +269,18 @@ document.onreadystatechange = function() {
 
 		setInterval(function(){
 			alternator++; //Increment to allow for changing displays
-			if(alternator%2 == 0){ //Alternate the displayed values
+			if(alternator%3 == 0){ //Alternate the displayed values
 				requestPowerInformation();
 				requestMPDInformation();
 			}
-			else{
+			else if(alternator%3 == 1){
 				requestTemp();
 				requestNetwork();
 			}
+			else{
+				requestFeinstaub()
+				requestPowerInformation()
+			}			
 
 			requestBTCInformation();
 			requestKeyInformation();
