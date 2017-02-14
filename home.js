@@ -224,7 +224,7 @@ function requestNetwork(){
 
 function requestFeinstaub(){
 	feinstaubRequest_sued = new XMLHttpRequest();
-	feinstaubRequest_sued.open("GET", "http://api.luftdaten.info/v1/data/?sensor=61&page_size=1", true);
+	feinstaubRequest_sued.open("GET", "http://api.luftdaten.info/v1/data/?sensor=658&page_size=1", true);
 	feinstaubRequest_sued.setRequestHeader("Content-type","application/json");
 	feinstaubRequest_sued.onreadystatechange=function(){
 		feinstaub_html = "Feinstaub: ";
