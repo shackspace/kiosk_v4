@@ -156,7 +156,7 @@ function requestGelberSack(){
 			if ( isNaN( sackdate.getTime() ) ) {
 				document.getElementById("sack").innerHTML= "kein Termin vorhanden";
 			} else {
-				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+				var options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
 				document.getElementById("sack").innerHTML= sackdate.toLocaleDateString('de-DE', options);
 			}
 		}
@@ -178,7 +178,7 @@ function requestPapierMuell(){
 			if ( isNaN( muelldate.getTime() ) ) {
 				document.getElementById("papier").innerHTML= "kein Termin vorhanden";
 			} else {
-				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+				var options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
 				document.getElementById("papier").innerHTML= muelldate.toLocaleDateString('de-DE', options);
 			}
 		}
@@ -200,7 +200,7 @@ function requestRestMuell(){
 			if ( isNaN( muelldate.getTime() ) ) {
 				document.getElementById("rest").innerHTML= "kein Termin vorhanden";
 			} else {
-				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+				var options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
 				document.getElementById("rest").innerHTML= muelldate.toLocaleDateString('de-DE', options);
 			}
 		}

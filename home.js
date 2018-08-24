@@ -152,7 +152,7 @@ function requestMuell(muell,fancyname){
 			if ( isNaN( sackdate.getTime() ) ) {
 				document.getElementById(muell).innerHTML= "kein Termin vorhanden";
 			} else {
-				var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+				var options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
 				document.getElementById(muell).innerHTML= fancyname+": " + sackdate.toLocaleDateString('de-DE', options);
 				if(sackdate.getTime() < Date.now()+60*60*24*1000){ //Color the date if its less than 24h away
 					if (response['main_action_done']){
