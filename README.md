@@ -5,7 +5,7 @@ The latest, greatest and somehow refactored revision of the mygthy shackspace ki
 
 ## development
 
-* run development environment: ``python -m SimpleHTTPServer 8002``
+* run development environment: ``python2 -m SimpleHTTPServer 8002`` or ``python3 -m http.server 8002``
 * surf to ``http://localhost:8002``
 * disable cors with this extension in Chrome/Chromium: ``https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en``
 
