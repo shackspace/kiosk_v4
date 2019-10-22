@@ -5,6 +5,17 @@ function createGraph(){
 
 	var powerRequest = null;
 	powerRequest = new XMLHttpRequest();
+
+/* copied from kiosk_v5:
+ *
+ *                         std::string const msg = "http://influx.shack/query?pretty=false&db=telegraf&q=" +
+ *                         	urlencode(
+ *                         		"SELECT mean(\"value\") FROM \"Power\" WHERE (\"topic\" = '/power/total/L1/Power') AND time >= now() - " + time_range + " GROUP BY time(" + time_step + ") fill(null);"
+ *                                      "SELECT mean(\"value\") FROM \"Power\" WHERE (\"topic\" = '/power/total/L2/Power') AND time >= now() - " + time_range + " GROUP BY time(" + time_step + ") fill(null);"
+ *                                      "SELECT mean(\"value\") FROM \"Power\" WHERE (\"topic\" = '/power/total/L3/Power') AND time >= now() - " + time_range + " GROUP BY time(" + time_step + ") fill(null)"
+ *                      	);
+ */
+
 	powerRequest.open("GET", "http://glados.shack/siid/apps/powermeter.py?n=" + jumpInterval*150); //A tick is two seconds long and we start by covering 5 Minutes
 	powerRequest.setRequestHeader("Content-type","application/json");
 
