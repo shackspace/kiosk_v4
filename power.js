@@ -5,7 +5,18 @@ function createGraph(){
 
 	var powerRequest = null;
 	powerRequest = new XMLHttpRequest();
-	powerRequest.open("GET", "http://glados.shack/siid/apps/powermeter.py?n=" + jumpInterval*150); //A tick is two seconds long and we start by covering 5 Minutes
+
+	var url = "http://influx.shack/query?pretty=false&db=telegraf&q=";
+	var time_range = jumpInterval*300 + "s"; //we start by covering 5 Minutes
+ 	var time_step = Math.round(Math.max(1, jumpInterval*150/1000)) + "s";
+	
+	var query = encodeURI(
+"SELECT mean(\"value\") FROM \"Power\" WHERE (\"topic\" = '/power/total/L1/Power') AND time >= now() - " + time_range + " GROUP BY time(" + time_step + ") fill(null);\
+SELECT mean(\"value\") FROM \"Power\" WHERE (\"topic\" = '/power/total/L2/Power') AND time >= now() - " + time_range + " GROUP BY time(" + time_step + ") fill(null);\
+SELECT mean(\"value\") FROM \"Power\" WHERE (\"topic\" = '/power/total/L3/Power') AND time >= now() - " + time_range + " GROUP BY time(" + time_step + ") fill(null)");
+	query = query.replace(/;/g, "%3B");
+
+	powerRequest.open("GET", url + query);
 	powerRequest.setRequestHeader("Content-type","application/json");
 
 	powerRequest.onreadystatechange=function(){
@@ -18,12 +29,21 @@ function createGraph(){
 			var l2Array = [];
 			var l3Array = [];
 
-			for(var i = 0; i<response.Total.length; i=i+jumpInterval){
+			var lastL1Value, lastL2Value, lastL3Value, lastTotalValue;
+
+			for(var i = 0; i<response["results"][0]["series"][0]["values"].length; i=i+jumpInterval){
 				labelArray.push(i);
-				totalArray.push(response.Total[i]);
-				l1Array.push(response["L1.Power"][i]);
-				l2Array.push(response["L2.Power"][i]);
-				l3Array.push(response["L3.Power"][i]);
+
+				lastL1Value = response["results"][0]["series"][0]["values"][i][1]*1;
+				lastL2Value = response["results"][1]["series"][0]["values"][i][1]*1;
+				lastL3Value = response["results"][2]["series"][0]["values"][i][1]*1;
+				lastTotalValue = lastL1Value + lastL2Value + lastL3Value;
+
+				l1Array.push(lastL1Value);
+				l2Array.push(lastL2Value);
+				l3Array.push(lastL3Value);
+
+				totalArray.push(lastTotalValue);
 			}
 			
 			var data = {
@@ -68,10 +88,10 @@ function createGraph(){
 			powerChart = new Chartist.Line("#powerChart", data, options);
 			console.log(powerChart);
 			
-			document.getElementById("total").innerHTML = "Total: " + response.Total[response.Total.length-1] +"W";
-			document.getElementById("l1").innerHTML = "L1: " + response["L1.Power"][response["L1.Power"].length-1]+"W";
-			document.getElementById("l2").innerHTML = "L2: " + response["L2.Power"][response["L2.Power"].length-1]+"W";
-			document.getElementById("l3").innerHTML = "L3: " + response["L3.Power"][response["L3.Power"].length-1]+"W";
+			document.getElementById("total").innerHTML = "Total: " + lastTotalValue + "W";
+			document.getElementById("l1").innerHTML = "L1: " + lastL1Value + "W";
+			document.getElementById("l2").innerHTML = "L2: " + lastL2Value + "W";
+			document.getElementById("l3").innerHTML = "L3: " + lastL3Value + "W";
 
 			updateTimer = window.setInterval(function(){updateDiagramm()}, 2000*jumpInterval); //Restart the timer
 			registerClickListeners(); //Re-register the click listeners
